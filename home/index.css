@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+.fixedback {
+  width: 100%;
+  height: auto;
+
+}
+.no-padding {
+	padding: 0;
+}
+ 
+.imagetext{
+   width: 100%;
+   text-align: center;
+   position: absolute;
+   bottom:90%;left:auto; right:auto;
+   margin: 0 auto;
+   font-family: 'Anton', sans-serif;
+   font-size: 2.2vh;
+}
+.imagetext2{
+   width: 100%;
+   text-align: center;
+   position: absolute;
+   bottom:70%;left:auto; right:auto;
+   margin: 0 auto;
+   font-size: 2.5vh;
+   font-family: 'Kalam', cursive;
+}
+
+.imagetext3 {
+ 
+   width: 100%;
+   text-align: center;
+   position: absolute;
+   bottom:5%;left:auto; right:auto;
+   margin: 0 auto;
+   font-family: 'Anton', sans-serif;
+   font-size: 4vh;
+   background-color: #93babf;
+   opacity: 0.8;
+   color: black;
+}
+.imagetext33 {
+	font-size: 3vh;
+}
+
+.supportcomp {
+	width: 10vw;
+ 
+}
+.comholdersub{
+   width: 25%;
+  display: inline-block;
+ 
+}
+.comholder {
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+.awesome {
+  font-family: futura;
+  font-style: italic;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  color: #313131;
+  font-weight: bold;
+  position: absolute;
+  -webkit-animation: colorchange 20s infinite alternate;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: blue;
+  }
+  10% {
+    color: #8e44ad;
+  }
+  20% {
+    color: #1abc9c;
+  }
+  30% {
+    color: #d35400;
+  }
+  40% {
+    color: blue;
+  }
+  50% {
+    color: #34495e;
+  }
+  60% {
+    color: blue;
+  }
+  70% {
+    color: #2980b9;
+  }
+  80% {
+    color: #f1c40f;
+  }
+  90% {
+    color: #2980b9;
+  }
+  100% {
+    color: pink;
+  }
+}
+
+
+.empexplain3 {
+   text-align: left;
+   font-family: 'Architects Daughter', cursive;
+background: rgb(44,119,66);
+background: linear-gradient(180deg, rgba(44,119,66,0.01) 0%, rgba(255,255,255,1) 84%);
+ 
+   color: black;
+   padding: 5vw;
+}
+.registernow {
+  box-shadow: 0px 1px 0px 0px #f0f7fa;
+  background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+  background-color:#33bdef;
+  border-radius:6px;
+  border:1px solid #057fd0;
+  display:inline-block;
+  cursor:pointer;
+  color:black;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px -1px 0px #5b6178;
+}
+.registernow:hover {
+  background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+  background-color:#019ad2;
+}
+.registernow2 {
+  box-shadow:inset 0px 1px 0px 0px #fff6af;
+  background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+  background-color:#ffec64;
+  border-radius:6px;
+  border:1px solid #ffaa22;
+  display:inline-block;
+  cursor:pointer;
+  color:#333333;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffee66;
+}
+.registernow2:hover {
+  background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+  background-color:#ffab23;
+}
+
+.texthead {
+  1text-align: center;
+}
+.card-text ul {
+  text-align: left;
+}
+.fa-asymmetrik:hover{
+  color: blue;
+}
+.fa-globe-asia:hover{
+  color: blue;
+}
+.fa-laptop-code:hover{
+  color: blue;
+}
+
+
+
+ .section-header h3 {
+     font-size: 36px;
+     color: #283d50;
+     text-align: center;
+     font-weight: 500;
+     position: relative
+ }
+
+ .section-header p {
+     text-align: center;
+     margin: auto;
+     font-size: 15px;
+     padding-bottom: 60px;
+     color: #556877;
+     width: 50%
+ }
+
+ #clients {
+     padding: 60px 0
+ }
+
+ #clients .clients-wrap {
+     border-top: 1px solid #d6eaff;
+     border-left: 1px solid #d6eaff;
+     margin-bottom: 30px
+ }
+
+ #clients .client-logo {
+     padding: 64px;
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: center;
+     -webkit-justify-content: center;
+     -ms-flex-pack: center;
+     justify-content: center;
+     -webkit-box-align: center;
+     -webkit-align-items: center;
+     -ms-flex-align: center;
+     align-items: center;
+     border-right: 1px solid #d6eaff;
+     border-bottom: 1px solid #d6eaff;
+     overflow: hidden;
+     background: #fff;
+     height: 160px
+ }
+
+ #clients img {
+     transition: all 0.4s ease-in-out
+ }
+ .one{
+  background-image: url('images/tearo.jpg');
+  background-attachment: fixed;
+  height: 400px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.oneback {
+  color: white;
+  text-shadow: 2px 2px black;
+  padding: 50px;
+  width: 100%;
+}
+
+ .two{
+  background-image: url('images/tearo2.jpg');
+  background-attachment: fixed;
+  height: 400px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.twoback {
+  color: white;
+  text-shadow: 2px 2px black;
+  padding: 50px;
+  width: 100%;
+}

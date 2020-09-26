@@ -1,0 +1,53 @@
+.roundBadge {
+  background-color: #80acf2;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  border-radius: 50%;
+  text-align: center;
+  width: 5em;
+  overflow: hidden;
+
+}
+.profileImg {
+	width: 50%;
+	height: auto;
+}
+.imgContainer {
+	text-align: center;
+}
+.i-am-centered { margin: auto; max-width: 300px;}
+
+.jobs {
+  font-size: 12px;
+}
+ .jobs tbody tr {
+    cursor: pointer;
+}
+.jobData {
+  font-size: 10px;
+  text-align: left;
+}
+.jobDetails {
+  display: hidden;
+}
+.accepted:before{
+   content:'\2713  ';
+   color: green;
+}
+.accepted{
+  color: green;
+  font-weight: 900;
+}
+a:hover{
+  color: black;
+  font-weight: 600;
+}
+.img-thumbnail{
+  border-radius: 20%;
+}
