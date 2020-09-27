@@ -28,4 +28,15 @@
 }
 .img-thumbnail{
   border-radius: 20%;
+  height: auto;
+  width: 100%;
+}
+.delete{
+  color: red;
+}
+.delete:hover{
+  color:#eb077d;
+}
+ .profiles tbody tr {
+    cursor: pointer;
 }

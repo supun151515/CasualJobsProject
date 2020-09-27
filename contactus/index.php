@@ -15,7 +15,7 @@ require_once("../php/header.php");
         </div>
         <br />
         <div class="col-md-6">
-            <form class="my-form">
+            <form class="my-form" action="mail.php">
                 <div class="form-group">
                     <label for="form-name">Name</label>
                     <input type="email" class="form-control" id="form-name" placeholder="Name">

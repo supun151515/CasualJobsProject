@@ -16,7 +16,7 @@ LEFT JOIN (SELECT pj.profileid, GROUP_CONCAT(jt.jobTitle) as jobnames FROM profi
 LEFT JOIN (SELECT pl.profileid, GROUP_CONCAT(sl.location) as location FROM
 	profilemultilocationsub pl LEFT JOIN locations_sub sl ON pl.locationSubid = sl.id GROUP BY pl.profileid) y ON y.profileid = p.id
 LEFT JOIN locations l ON p.location = l.id 
-WHERE p.userid=?";
+WHERE p.userid=? AND p.status='1'";
 
 $smt=$con->prepare($sql);
 $smt->execute(array($empID));

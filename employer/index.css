@@ -27,8 +27,14 @@
   font-size: 12px;
 }
  .jobs tbody tr {
-    /cursor: pointer;
+    cursor: pointer;
 }
 .img-thumbnail{
   border-radius: 20%;
+}
+.delete{
+  color: red;
+}
+.delete:hover{
+  color:#eb077d;
 }

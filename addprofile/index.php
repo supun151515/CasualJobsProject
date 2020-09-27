@@ -5,6 +5,10 @@ if($_SESSION['type'] != '2'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
+$imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
+if(!file_exists($imagePath)){
+    $imagePath = '../css/images/nologo.png';
+}
 ?>
 
 <link href="../css/jquery.tagsinput-revisited.min.css" rel="stylesheet" />
@@ -82,12 +86,18 @@ function getTotalHrsWeek(){
 	//totsun = moment.utc(moment.duration(totsun, "minutes").asMilliseconds()).format("HH:mm");
 	var finalhours = parseFloat(totmon + tottue + totwed + totthu + totfri + totsat + totsun);
 	//$("#totalHours").html(moment.utc(moment.duration(finalhours, "minutes").asMilliseconds()).format("HH:mm"));
-	$("#totalHours").html(Math.floor(finalhours / 60) + ':' + finalhours % 60);
+	var newtotalHours = Math.floor(finalhours / 60) + ':' + finalhours % 60;
+	newtotalHours = moment.duration(newtotalHours, 'minutes');
+ 
+	$("#totalHours").html(newtotalHours.format('HH:mm'));
 }
 
 
 $(document).ready(function () {
-
+$("#payrate").keyup(function() {
+    var $this = $(this);
+    $this.val($this.val().replace(/[^\d.]/g, ''));        
+});
  
 
 $("#timefrom, #timeto, .timeweek").on('valueChanged', function (event) {
@@ -158,14 +168,16 @@ $("#timefrom, #timeto, .timeweek").jqxDateTimeInput({formatString: 'HH:mm', show
 $("#diff").click(function(){
 	if($(this).is(':checked')){
 		$(".timeweektable").show();
+		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: true });
 	}else {
 		$(".timeweektable").hide();
+		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: false });
 	}
 	});
 
 $("#finish").click(function(){
 
- 
+ var today = moment($.datepicker.formatDate('yy-mm-dd', new Date()), 'YYYY-MM-DD');
  
 	if(jobid == '' ){
 		alertify.error("Please select the Job Title");
@@ -199,7 +211,20 @@ $("#finish").click(function(){
 	var dateStart = moment($('#datestart').jqxDateTimeInput('getDate'), 'YYYY-MM-DD'); 
 	var dateEnd = moment($('#dateend').jqxDateTimeInput('getDate'), 'YYYY-MM-DD');
 	var diffDate = dateEnd.diff(dateStart, 'days');
-
+	if(today > dateStart){
+		if(!$("#asap").is(':checked')){
+		alertify.error("Invalid start date selected");
+		$('a[href="#step-2"]').trigger("click");
+		return false;
+		}
+	}
+	if(today > dateEnd){
+		if(!$("#endno").is(':checked')){
+		alertify.error("Invalid end date selected");
+		$('a[href="#step-2"]').trigger("click");
+		return false;
+		}
+	}
 	if($("#asap").is(':checked') || $("#endno").is(':checked')){
 
 	}else{
@@ -266,22 +291,19 @@ $("#finish").click(function(){
 
    $.post("data.php", data, function(data){
        if(data == 'ok'){
-        alertify.alert("Success", "Your registration has been succeeded", function(){
+        alertify.alert("Success", "New Profile has been added successfully", function(){
           document.location = '../seeker';
         });
         
         return false;
        }else {
-        alertify.alert("Error", "Unable to add. Please contact your system administrator");
+        alertify.alert("Error", "Unable to continue. Please contact your system administrator");
        }
     });
 
 });
 
-$("#test").click(function(){
-	 $('div.setup-panel div a.btn-success').trigger('click');
-});
-
+ 
 $("#endno").change(function(){
 	$(this).is(':checked') ? $("#dateend").jqxDateTimeInput({ disabled: true }) : $("#dateend").jqxDateTimeInput({ disabled: false });
 });
@@ -303,7 +325,7 @@ $("#asap").change(function(){
 <div class="container-fluid pb-5">
 	<div class="row">
 		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="../seeker/images/<?php echo $_SESSION['id']; ?>.jpg" class="rounded-circle pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>
@@ -392,7 +414,7 @@ $("#asap").change(function(){
 			<div class="form-group row">
 				  <div class="col-md-6">
 				    <button id="singlebutton" name="singlebutton" class="btn btn-primary nextBtn pull-right">Next</button>
-				    <input type="button" id="test" value="test" />
+	 
 				  </div>
 			</div>
 			</div>
@@ -591,7 +613,7 @@ $("#asap").change(function(){
 				</div>
 
 				<div class="form-group row">
-					  <label class="col-md-4 control-label" for="vehicle">Vehicle Requirement</label>
+					  <label class="col-md-4 control-label" for="vehicle">Vehicle Preference</label>
 					  <div class="col-md-4">
 					    <select id="vehicle" name="vehicle" class="form-control">
 					      <option value="0">No Vehicle</option>
@@ -601,7 +623,7 @@ $("#asap").change(function(){
 				</div>
 
 				<div class="form-group row">
-					  <label class="col-md-4 control-label" for="ethnicity">Ethnicity Requirement</label>
+					  <label class="col-md-4 control-label" for="ethnicity">Ethnicity Preference</label>
 					  <div class="col-md-6">
 					    <select id="ethnicity" name="ethnicity" class="form-control">
 					      <option value="0">Prefer not to say</option>

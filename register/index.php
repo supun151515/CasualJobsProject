@@ -76,7 +76,7 @@ $("#register").click(function(){
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-12 pageHeader">Employer Dashboard</div>
+        <div class="col-sm-12 pageHeader">Registration</div>
     </div>
 </div>
 <form id="imageform" method="post" enctype="multipart/form-data" action="ajaxupload.php">
@@ -179,7 +179,7 @@ $("#register").click(function(){
 
 
 </div> 
-
+<br>
 <div class="form-group row">
   <label class="col-md-4 control-label" for="register"></label>
   <div class="col-md-5">

@@ -335,10 +335,10 @@ return $final;
 }
 
 function timeDiffSeekerFixed($jobid, $profileid, $t1p, $t2p, $con){
-	$smtj = $con->prepare("SELECT * FROM timediffjobs WHERE jobid=?");
+	$smtj = $con->prepare("SELECT * FROM timediffjobs WHERE jobid=? AND status='1'");
 	$smtj->execute(array($jobid));
 	$rowj =$smtj->fetch(PDO::FETCH_OBJ);
-
+	
 	$mon = $tue = $wed = $thu = $fri = $sat = $sun = $t1 = $t2 = $diffdays = 0;
 
 	$monj1 = strtotime($rowj->mon1);

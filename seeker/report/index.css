@@ -1,0 +1,58 @@
+.userName{
+	font-size: 25px;
+}
+.profile{
+  	border-radius: 20%;
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+ 
+}
+.f1{
+	background-color: gray
+	width:100%;
+	border-color: blue;
+	border-left:6px solid #ccc;
+	border-bottom:2px solid #ccc;
+	padding: 10px;
+}
+.generaltd{
+	width: 20%;
+}
+.secondtd{
+	width: 30%;
+}
+.floatedTable{
+	width: 100%;
+}
+.timing{
+	width: 100%;
+}
+.time1, .time3 , .time5, .time7{
+	width: 12%
+}
+.time2, .time4, .time6, .time8{
+	width: 15%;
+}
+.totalHours{
+	font-weight: 900;
+	font-size: 15px;
+}
+.timetable1, .timetable3, .timetable5 {
+	width: 15%;
+}
+.timetable2, .timetable4, .timetable6 {
+	width: 20%;
+}
+.q1, .q3, .q5 {
+	width: 15%;
+}
+.q2, .q4, .q6 {
+	width: 20%;
+}
+.print{
+	font-size: 10px;
+	position:absolute;
+    bottom:10;
+    right:10;
+}

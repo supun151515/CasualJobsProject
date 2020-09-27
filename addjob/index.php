@@ -5,6 +5,10 @@ if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
+$imagePath = '../employer/images/'.$_SESSION["id"].'.jpg';
+if(!file_exists($imagePath)){
+    $imagePath = '../css/images/nologo.png';
+}
 ?>
 
 <link href="../css/jquery.tagsinput-revisited.min.css" rel="stylesheet" />
@@ -84,13 +88,21 @@ function getTotalHrsWeek(){
 	var totsun = sun2.diff(sun1, 'minutes');
 	//totsun = moment.utc(moment.duration(totsun, "minutes").asMilliseconds()).format("HH:mm");
 	var finalhours = parseFloat(totmon + tottue + totwed + totthu + totfri + totsat + totsun);
-	$("#totalHours").html(Math.floor(finalhours / 60) + ':' + finalhours % 60);
+	
+	var newtotalHours = Math.floor(finalhours / 60) + ':' + finalhours % 60;
+	newtotalHours = moment.duration(newtotalHours, 'minutes');
+
+	$("#totalHours").html(newtotalHours.format('HH:mm'));
 	//$("#totalHours").html(moment.utc(moment.duration(finalhours, "minutes").asMilliseconds()).format("HH:mm"));
 }
 
 
 $(document).ready(function () {
 
+$("#payrate").keyup(function() {
+    var $this = $(this);
+    $this.val($this.val().replace(/[^\d.]/g, ''));        
+});
 $("#timefrom, #timeto, .timeweek").on('valueChanged', function (event) {
 	$("#diff").is(':checked') ? getTotalHrsWeek() : getTotalHrs();
 });
@@ -156,15 +168,18 @@ $("#timefrom, #timeto, .timeweek").jqxDateTimeInput({formatString: 'HH:mm', show
 $("#diff").click(function(){
 	if($(this).is(':checked')){
 		$(".timeweektable").show();
+		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: true });
 	}else {
 		$(".timeweektable").hide();
+		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: false });
 	}
 	});
 
 
 
 $("#finish").click(function(){
-
+	var today = moment($.datepicker.formatDate('yy-mm-dd', new Date()), 'YYYY-MM-DD');
+ 
 	if(jobid == '0' ){
 		alertify.error("Please select the Job Title");
 		$('a[href="#step-1"]').trigger("click");
@@ -189,6 +204,22 @@ $("#finish").click(function(){
 
 	var dateStart = moment($('#datestart').jqxDateTimeInput('getDate'), 'YYYY-MM-DD'); 
 	var dateEnd = moment($('#dateend').jqxDateTimeInput('getDate'), 'YYYY-MM-DD');
+	if(today > dateStart){
+		if(!$("#ongoing").is(':checked')){
+			alertify.error("Invalid start date selected");
+			$('a[href="#step-2"]').trigger("click");
+			return false;
+		}
+		
+	}
+	if(today > dateEnd){
+		if(!$("#endno").is(':checked')){
+			alertify.error("Invalid end date selected");
+			$('a[href="#step-2"]').trigger("click");
+			return false;
+		}
+		
+	}
 	var diffDate = dateEnd.diff(dateStart, 'days');
 	if($("#ongoing").is(':checked') || $("#endno").is(':checked')){
 
@@ -262,17 +293,14 @@ $("#finish").click(function(){
 
    $.post("data.php", data, function(data){
        if(data == 'ok'){
-        alertify.alert("Success", "Your registration has been succeeded", function(){
+        alertify.alert("Success", "New job added successfully", function(){
           document.location = '../employer';
         });
         
         return false;
-       }else if(data =='login'){
-       	alertify.alert("You are logged out from the system. Please login to continue");
-       	return false;
        }
        else {
-        alertify.alert("Error", "Unable to add. Please contact your system administrator");
+        alertify.alert("Error", "Unable to continue. Please contact your system administrator");
         return false;
        }
     });
@@ -303,7 +331,7 @@ $("#ongoing").change(function(){
 <div class="container-fluid pb-5">
 	<div class="row">
 			<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="../employer/images/<?php echo $_SESSION['id']; ?>.jpg" class="rounded-circle pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>

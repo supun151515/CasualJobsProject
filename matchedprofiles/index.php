@@ -1,10 +1,15 @@
 <?php
 require_once("../php/header.php");
+include ('../php/session.php');
 $_SESSION['dropdown'] = '1';
 require_once("../php/session.php");
 if($_SESSION['type'] != '2'){
 	echo "You are not allowed to access this feature";
 	return false;
+}
+$imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
+if(!file_exists($imagePath)){
+    $imagePath = '../css/images/nologo.png';
 }
 ?>
 
@@ -30,6 +35,28 @@ profileID = profileID[1];
 } catch(err) {
 
 }
+
+
+$(document).on("click", ".cv", function(e){
+    e.stopPropagation();
+    var matchid=this.id;
+    var created_date = moment().format('YYYY-MM-DD');
+    var created_time = moment().format('hh:mm a');
+    $.ajax({url:'downloadcv.php', type:'POST', async:false, data:{matchid:matchid, created_date:created_date, created_time:created_time}, success:function(data){
+        try{
+        if(data=='ok'){
+            window.open("report");
+        }else{
+            alertify.alert("You do not have permission to view this candidate");
+            return false;
+        }
+        }catch(err){
+        console.log(err.message);
+        return false;
+        }
+    }});
+});
+
 
 $(document).on("click", "#jobs tr", function(){
 var rowID = this.id;
@@ -233,7 +260,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 
     	htmldetails +='<tr><th>Mon</th><td>'+moment(jmon1,"HH:mm:ss").format("HH:mm")+' - '+moment(jmon2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(pmon1,"HH:mm:ss").format("HH:mm")+' - '+moment(pmon2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.mon+'%</td></tr>';
     	htmldetails +='<tr><th>Tue</th><td>'+moment(jtue1,"HH:mm:ss").format("HH:mm")+' - '+moment(jtue2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(ptue1,"HH:mm:ss").format("HH:mm")+' - '+moment(ptue2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.tue+'%</td></tr>';
-    	htmldetails +='<tr><th>Mon</th><td>'+moment(jwed1,"HH:mm:ss").format("HH:mm")+' - '+moment(jwed2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(pwed1,"HH:mm:ss").format("HH:mm")+' - '+moment(pwed2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.wed+'%</td></tr>';
+    	htmldetails +='<tr><th>Wed</th><td>'+moment(jwed1,"HH:mm:ss").format("HH:mm")+' - '+moment(jwed2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(pwed1,"HH:mm:ss").format("HH:mm")+' - '+moment(pwed2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.wed+'%</td></tr>';
     	htmldetails +='<tr><th>Thu</th><td>'+moment(jthu1,"HH:mm:ss").format("HH:mm")+' - '+moment(jthu2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(pthu1,"HH:mm:ss").format("HH:mm")+' - '+moment(pthu2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.thu+'%</td></tr>';
     	htmldetails +='<tr><th>Fri</th><td>'+moment(jfri1,"HH:mm:ss").format("HH:mm")+' - '+moment(jfri2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(pfri1,"HH:mm:ss").format("HH:mm")+' - '+moment(pfri2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.fri+'%</td></tr>';
     	htmldetails +='<tr><th>Sat</th><td>'+moment(jsat1,"HH:mm:ss").format("HH:mm")+' - '+moment(jsat2,"HH:mm:ss").format("HH:mm")+'</td><td>'+moment(psat1,"HH:mm:ss").format("HH:mm")+' - '+moment(psat2,"HH:mm:ss").format("HH:mm")+'</td><td class="text-right">'+v.sat+'%</td></tr>';
@@ -242,14 +269,14 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
     	
     	htmldetails +='<tr><th>Qualification</th><td>'+v.jqualification+'</td><td>'+v.pqualification+'</td><td class="text-right">'+v.qualification+'%</td></tr>';
     	htmldetails +='<tr><th>Experience</th><td>'+v.jexperience+'</td><td>'+v.pexperience+'</td><td class="text-right">'+v.experience+'%</td></tr>';
-    	htmldetails +='<tr><th>skills</th><td>'+v.jskills+'</td><td>'+v.pskills+'</td><td class="text-right">'+v.skills+'%</td></tr>';
+    	htmldetails +='<tr><th>Skills</th><td>'+v.jskills+'</td><td>'+v.pskills+'</td><td class="text-right">'+v.skills+'%</td></tr>';
     	htmldetails +='<tr><th>Visa</th><td>'+v.jvisaType+'</td><td>'+v.pvisaType+'</td><td class="text-right">'+v.visa+'%</td></tr>';
     	htmldetails +='<tr><th>License</th><td>'+v.jlicense+'</td><td>'+v.plicense+'</td><td class="text-right">'+v.license+'%</td></tr>';
     	htmldetails +='<tr><th>Vehicle</th><td>'+v.jvehicle+'</td><td>'+v.pvehicle+'</td><td class="text-right">'+v.vehicle+'%</td></tr>';
     	htmldetails +='<tr><th>Ethnicity</th><td>'+v.jethnicity+'</td><td>'+v.pethnicity+'</td><td class="text-right">'+v.ethnicity+'%</td></tr>';
-    	htmldetails +='<tr><th>age</th><td>'+v.jage1+' - '+v.jage2+'</td><td>'+v.page+'</td><td class="text-right">'+v.age+'%</td></tr>';
+    	htmldetails +='<tr><th>Age</th><td>'+v.jage1+' - '+v.jage2+'</td><td>'+v.page+'</td><td class="text-right">'+v.age+'%</td></tr>';
     	htmldetails +='<tr><th>Gender</th><td>'+v.jgender+'</td><td>'+v.pgender+'</td><td class="text-right">'+v.gender+'%</td></tr>';
-    	htmldetails +='<tr><b><th colspan="3">Overall Job Matching percentage</th><td class="text-right"><b>'+v.totalMatch+'%</b></td></b></tr>';
+    	htmldetails +='<tr><b><th colspan="2">Overall Job Matching percentage</th><td><button type="button" id="'+v.id+'" class="btn btn-primary btn-xs cv">Download Job Details</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></b></tr>';
     	htmldetails +='</tbody></table></td></tr>';
     	html += htmldetails;
 
@@ -288,7 +315,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="../seeker/images/<?php echo $_SESSION['id']; ?>.jpg" class="img-thumbnail pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>
@@ -299,7 +326,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="">Edit Profile</a>
+					<a href="../editprofile">Edit Profile</a>
 				</div>
 				<div class="card-footer">
 					<a href="../php/logout.php">Logout</a>

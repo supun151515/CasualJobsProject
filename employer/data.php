@@ -98,7 +98,7 @@ runMatch($con);
 
 $allData = new stdClass();
 
-$smt=$con->prepare("SELECT j.*, CASE WHEN j.jobType = 1 THEN 'Casual' WHEN j.jobType = 2 THEN 'Part-time' WHEN j.jobType = 3 THEN 'One-Off' END as jobTypeName, l.location loc, ls.location locsub, jt.jobTitle FROM job j LEFT JOIN locations l ON j.location = l.id LEFT JOIN locations_sub ls ON j.locationSub = ls.id LEFT JOIN jobtitle jt ON j.jobTitleid = jt.id WHERE userid=?");
+$smt=$con->prepare("SELECT j.*, CASE WHEN j.jobType = 1 THEN 'Casual' WHEN j.jobType = 2 THEN 'Part-time' WHEN j.jobType = 3 THEN 'One-Off' END as jobTypeName, l.location loc, ls.location locsub, jt.jobTitle FROM job j LEFT JOIN locations l ON j.location = l.id LEFT JOIN locations_sub ls ON j.locationSub = ls.id LEFT JOIN jobtitle jt ON j.jobTitleid = jt.id WHERE userid=? AND j.status='1'");
 $smt->execute(array($empID));
 $row = $smt->fetchAll(PDO::FETCH_OBJ);
 $allData->jobs = $row;

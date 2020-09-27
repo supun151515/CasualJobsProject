@@ -15,6 +15,17 @@ require_once("../php/header.php");
         </div>
     </div>
 <br>
+
+
+<section id="clients" class="section-bg">
+    <div class="container">
+        <div class="section-header" style="width: 80%; margin: 0 auto; ">
+            <h2 style="text-align: center;">Casual Jobs Database V.1</h2>
+            <h4 style="text-align: center;">The unique job matching portal which aims to support students to search, apply, and get jobs and make their lives easier</h4>
+        </div>
+    </div>
+</section>
+
 <section id="clients" class="section-bg">
     <div class="container">
         <div class="section-header">

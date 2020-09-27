@@ -112,36 +112,36 @@ $profileID = $_POST['jobID'];
 	WHEN j.gender=2 THEN 'Female' END as jgender, j.status as jstatus, jt.mon1 jmon1, jt.mon2 jmon2, jt.tue1 jtue1, jt.tue2 jtue2, jt.wed1 jwed1, jt.wed2 jwed2, jt.thu1 jthu1, jt.thu2 jthu2, jt.fri1 jfri1, jt.fri2 jfri2, jt.sat1 jsat1, jt.sat2 jsat2, jt.sun1 jsun1, jt.sun2 jsun2, 
 
 	p.payRate as ppayRate, p.startDate as pstartDate, p.startType as pstartType, p.endDate as pendDate, p.endType as pendType, p.fromTime as pfromTime, p.toTime as ptoTime, p.timeDiff as ptimeDiff, 
-	CASE WHEN p.qualification=0 THEN 'Not Required' 
+	CASE WHEN p.qualification=0 THEN 'Prefer not to say' 
 	WHEN p.qualification=1 THEN 'Ordinary level' 
 	WHEN p.qualification=2 THEN 'College level' 
 	WHEN p.qualification=3 THEN 'High-School level' 
 	WHEN p.qualification=4 THEN 'University level' 
 	END as pqualification,
-	CASE WHEN p.experience=0 THEN 'Any' 
+	CASE WHEN p.experience=0 THEN 'Prefer not to say' 
 	WHEN p.experience=1 THEN '1-3 Months' 
 	WHEN p.experience=2 THEN '3-6 Months' 
 	WHEN p.experience=3 THEN '6-12 Months' 
 	WHEN p.experience=4 THEN '12+ Months' 
 	END as pexperience, p.skills as pskills,
-	CASE WHEN p.visaType=0 THEN 'Any' 
+	CASE WHEN p.visaType=0 THEN 'Prefer not to say' 
 	WHEN p.visaType=1 THEN 'Student Work Visa' 
 	WHEN p.visaType=2 THEN 'General Work Visa' 
 	WHEN p.visaType=3 THEN 'Working Holiday Visa' 
 	WHEN p.visaType=4 THEN 'Other Visa Type' END as pvisaType, 
-	CASE WHEN p.license=0 THEN 'Any' 
+	CASE WHEN p.license=0 THEN 'Prefer not to say' 
 	WHEN p.license=1 THEN 'Full' 
 	WHEN p.license=2 THEN 'Restricted' 
 	WHEN p.license=3 THEN 'International' END as plicense, 
-	CASE WHEN p.vehicle=0 THEN 'Not Required' 
+	CASE WHEN p.vehicle=0 THEN 'No Vehicle' 
 	WHEN p.vehicle=1 THEN 'Own Vehicle' END as pvehicle, 
-	CASE WHEN p.ethnicity=0 THEN 'Any' 
+	CASE WHEN p.ethnicity=0 THEN 'Prefer not to say' 
 	WHEN p.ethnicity=1 THEN 'European' 
 	WHEN p.ethnicity=2 THEN 'Māori' 
 	WHEN p.ethnicity=3 THEN 'Pasifika' 
 	WHEN p.ethnicity=4 THEN 'Asian' 
 	WHEN p.ethnicity=5 THEN 'MELAA (Middle Eastern/Latin American/African)' END AS pethnicity, p.age page, 
-	CASE WHEN p.gender=0 THEN 'Any' 
+	CASE WHEN p.gender=0 THEN 'Prefer not to say' 
 	WHEN p.gender=1 THEN 'Male' 
 	WHEN p.gender=2 THEN 'Female' END as pgender, p.status as pstatus, pt.mon1 pmon1, pt.mon2 pmon2, pt.tue1 ptue1, pt.tue2 ptue2, pt.wed1 pwed1, pt.wed2 pwed2, pt.thu1 pthu1, pt.thu2 pthu2, pt.fri1 pfri1, pt.fri2 pfri2, pt.sat1 psat1, pt.sat2 psat2, pt.sun1 psun1, pt.sun2 psun2 
 

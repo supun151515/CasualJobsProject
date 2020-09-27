@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="page-footer font-small mdb-color pt-4">
+<footer class="page-footer font-small mdb-color pt-4 backgray">
 
   <!-- Footer Links -->
   <div class="container text-center text-md-left">
@@ -9,12 +9,18 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Casual Jobs Database V1</h6>
+        <h6 class="text-uppercase mb-4 font-weight-bold">Casual Jobs Database</h6>
         <p>We are SKR team, designed and developed this unique job search algorithm to support people who are strugle getting quick jobs to cover their essential needs.</p>
       </div>
       <!-- Grid column -->
 
       <hr class="w-100 clearfix d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+      <img src="../css/images/SKRlogo.png" alt="" class="img-fluid" style="float: right;">
+      </div>
+       <hr class="w-100 clearfix d-md-none">
 
       <!-- Grid column -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
@@ -34,24 +40,9 @@
       </div>
       <!-- Grid column -->
 
-      <hr class="w-100 clearfix d-md-none">
+     
 
-      <!-- Grid column -->
-      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
-        <p>
-          <a href="../login">Your Account</a>
-        </p>
-        <p>
-          <a href="../register">Become a member</a>
-        </p>
-        <p>
-          <a href="../aboutus">About us</a>
-        </p>
-        <p>
-          <a href="../contactus">Contact us</a>
-        </p>
-      </div>
+  
 
       <!-- Grid column -->
       <hr class="w-100 clearfix d-md-none">
@@ -66,7 +57,7 @@
         <p>
           <i class="fas fa-phone mr-3"></i> +64 28 422 8131</p>
         <p>
-          <i class="fas fa-print mr-3"></i> +64 28 422 8131</p>
+          <i class="fas fa-print mr-3"></i> +64 22 497 7311</p>
       </div>
       <!-- Grid column -->
 
@@ -84,7 +75,7 @@
         <!--Copyright-->
         <p class="text-center text-md-left">© 2020 Copyright:
           <a href="https://sinergy.lk/">
-            <strong> Sinergy.lk</strong>
+            <strong> SKR Team</strong>
           </a>
         </p>
 

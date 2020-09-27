@@ -51,3 +51,7 @@ a:hover{
 .img-thumbnail{
   border-radius: 20%;
 }
+.btn-xs{
+  font-size:10px;
+  padding:4px;
+}
