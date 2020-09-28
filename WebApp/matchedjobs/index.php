@@ -3,14 +3,11 @@ require_once("../php/header.php");
 include ('../php/session.php');
 $_SESSION['dropdown'] = '1';
 require_once("../php/session.php");
-if($_SESSION['type'] != '2'){
+if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
-$imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
-if(!file_exists($imagePath)){
-    $imagePath = '../css/images/nologo.png';
-}
+ 
 ?>
 
 <title>Matched Jobs</title>
@@ -21,7 +18,7 @@ $(document).ready(function () {
 
 var pathname = window.location.pathname;
 var url      = window.location.href;
-var profileID;
+var jobID;
 try{
 var pieces = url.split("?");
 var pieces = pieces[1];
@@ -29,17 +26,31 @@ pieces = pieces.split("&");
 
 var status = pieces[0];
 
-profileID = status.split("=");
-profileID = profileID[1];
+jobID = status.split("=");
+jobID = jobID[1];
  
 } catch(err) {
 
 }
 
+$(document).on("click", "#jobs tr", function(){
+var rowID = this.id;
+var thisDetails = $('#jobDetails'+rowID).css("display");
+
+if(thisDetails == 'none'){
+	$(".jobDetailsClass").hide(500)
+	$("#jobDetails"+rowID).show(500);
+}else{
+	$(".jobDetailsClass").hide(500);
+}
+
+
+});
 
 $(document).on("click", ".cv", function(e){
     e.stopPropagation();
     var matchid=this.id;
+    matchid = matchid.substring(2, matchid.length);
     var created_date = moment().format('YYYY-MM-DD');
     var created_time = moment().format('hh:mm a');
     $.ajax({url:'downloadcv.php', type:'POST', async:false, data:{matchid:matchid, created_date:created_date, created_time:created_time}, success:function(data){
@@ -56,38 +67,17 @@ $(document).on("click", ".cv", function(e){
         }
     }});
 });
-
-
-$(document).on("click", "#jobs tr", function(){
-var rowID = this.id;
-var thisDetails = $('#jobDetails'+rowID).css("display");
-
-if(thisDetails == 'none'){
-	$(".jobDetailsClass").hide(500)
-	$("#jobDetails"+rowID).show(500);
-}else{
-	$(".jobDetailsClass").hide(500);
-}
-
-
-});
-
 $(document).on("click", ".short", function(e){
     e.stopPropagation();
     var thishref = jQuery(this);
     var matchid = jQuery(this).closest('tr').attr('id');
-
-    if(thishref.text() == 'N/A'){
-        alertify.alert("No employer has been shortlisted your profile so far. Please check later");
-        return false;
-    }
-    if ( $( this ).hasClass( "accepted" ) ){
-        alertify.confirm('Confirm Decline', 'Are you sure, you would like to decline this job', function(){ 
-        $.ajax({url:'short.php', type:'POST', async:false, data:{short:"remove", profileID:profileID, matchid:matchid}, success:function(data){
+    if ( $( this ).hasClass( "shortlisted" ) ){
+        alertify.confirm('Confirm Decline', 'Are you sure, you would like to decline this candidate', function(){ 
+        $.ajax({url:'short.php', type:'POST', async:false, data:{short:"remove", jobID:jobID, matchid:matchid}, success:function(data){
         try{
         if(data=='ok'){
-            thishref.removeClass("accepted");
-            thishref.text("Accept");
+            thishref.removeClass("shortlisted");
+            thishref.text("Shortlist");
         }
         }catch(err){
         console.log(err.message);
@@ -99,12 +89,12 @@ $(document).on("click", ".short", function(e){
 
     });
     }else{
-    alertify.confirm('Confirm Shortlist', 'Are you sure, you would like to accept this job', function(){ 
-        $.ajax({url:'short.php', type:'POST', async:false, data:{short:"add", profileID:profileID, matchid:matchid}, success:function(data){
+    alertify.confirm('Confirm Shortlist', 'Are you sure, you would like to shortlist this candidate', function(){ 
+        $.ajax({url:'short.php', type:'POST', async:false, data:{short:"add", jobID:jobID, matchid:matchid}, success:function(data){
         try{
         if(data=='ok'){
-            thishref.addClass("accepted");
-            thishref.text("Accepted");
+            thishref.addClass("shortlisted");
+            thishref.text("Shortlisted");
         }
         }catch(err){
         console.log(err.message);
@@ -121,22 +111,26 @@ $(document).on("click", ".short", function(e){
 
     
 });
+ 
+
+
 
 var parsedData;
 
-$.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, success:function(data){
+$.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:jobID}, success:function(data){
     try{
         parsedData = JSON.parse(data);
         var jobs = parsedData.job;
         var matched = parsedData.match;
-        $("#jobName").html(jobs.jobnames);
+        $("#jobName").html(jobs.jobTitle);
         var htmlData = '<table id="displayJob" class="jobData table table-fixed table-striped"><tbody><tr><td>Posted Date</td><td>'+moment(jobs.dateAdd).format("YYYY-MM-DD")+'</td></tr>'
 
-        htmlData+='<tr><td>Job Title</td><td>'+jobs.jobnames+'</td></tr>';
+        htmlData+='<tr><td>Job Title</td><td>'+jobs.jobTitle+'</td></tr>';
         htmlData+='<tr><td>Job Type</td><td>'+jobs.jobTypeName+'</td></tr>';
         htmlData+='<tr><td>Location</td><td>'+jobs.location+'</td></tr>';
-        htmlData+='<tr><td>Sub Location</td><td>'+jobs.location_sub+'</td></tr>';
+        htmlData+='<tr><td>Sub Location</td><td>'+jobs.locationsub+'</td></tr>';
         htmlData+='<tr><td>Pay Rate</td><td>'+jobs.payRate+'</td></tr>';
+        htmlData+='<tr><td>Job Des</td><td>'+jobs.jobDes+'</td></tr>';
         htmlData+='<tr><td id"jstartDate">Start Date</td><td>'+moment(jobs.startDate).format("YYYY-MM-DD")+'</td></tr>';
         htmlData+='<tr><td id"jendDate">End Date</td><td>'+moment(jobs.endDate).format("YYYY-MM-DD")+'</td></tr>';
 
@@ -161,7 +155,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
         htmlData+='<tr><td>License</td><td>'+jobs.license+'</td></tr>';
         htmlData+='<tr><td>Vehicle</td><td>'+jobs.vehicle+'</td></tr>';
         htmlData+='<tr><td>Ethnicity</td><td>'+jobs.ethnicity+'</td></tr>';
-        htmlData+='<tr><td>Age</td><td>'+jobs.age+'</td></tr>';
+        htmlData+='<tr><td>Age Range</td><td>'+jobs.age1+' - '+jobs.age2+'</td></tr>';
         htmlData+='<tr><td>Gender</td><td>'+jobs.gender+'</td></tr>';
 
         htmlData+='</tbody></table>';
@@ -174,7 +168,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
   
         $.each(matched, function(i,v){
 
-    	var html = '<tr id="'+v.id+'"><td style="display: none;" scope="col">'+v.id+'</td><td style="display: none;" scope="col">'+v.profileid+'</td><td scope="col" width="10px">'+num+'</td><td scope="col">'+moment(v.dateAdd).format('YYYY-MM-DD')+'</td><td scope="col" id="'+v.id+'">'+v.jobnames+'</td><td scope="col">'+v.location+'</td><td scope="col">'+v.userName+'</td><td scope="col">'+v.totalMatch+'%</td><td scope="col"><a href="#" class="short" id="short'+v.id+'" target="">N/A</a></td></tr>';
+    	var html = '<tr id="'+v.id+'"><td style="display: none;" scope="col">'+v.id+'</td><td style="display: none;" scope="col">'+v.profileid+'</td><td scope="col" width="10px">'+num+'</td><td scope="col">'+moment(v.dateAdd).format('YYYY-MM-DD')+'</td><td scope="col" id="'+v.id+'">'+v.jobnames+'</td><td scope="col">'+v.location+'</td><td scope="col">'+v.userName+'</td><td scope="col">'+v.totalMatch+'%</td><td scope="col"><a href="#" class="short" id="short'+v.id+'" target="">Shortlist</a></td></tr>';
 
 
         //details
@@ -276,7 +270,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
     	htmldetails +='<tr><th>Ethnicity</th><td>'+v.jethnicity+'</td><td>'+v.pethnicity+'</td><td class="text-right">'+v.ethnicity+'%</td></tr>';
     	htmldetails +='<tr><th>Age</th><td>'+v.jage1+' - '+v.jage2+'</td><td>'+v.page+'</td><td class="text-right">'+v.age+'%</td></tr>';
     	htmldetails +='<tr><th>Gender</th><td>'+v.jgender+'</td><td>'+v.pgender+'</td><td class="text-right">'+v.gender+'%</td></tr>';
-    	htmldetails +='<tr><b><th colspan="2">Overall Job Matching percentage</th><td><button type="button" id="'+v.id+'" class="btn btn-primary btn-xs cv">Download Job Details</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></b></tr>';
+    	htmldetails +='<tr><th colspan="2"><b>Overall Job Matching percentage</b></th><td><button type="button" id="cv'+v.id+'" class="btn btn-primary btn-xs cv">Download CV</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></tr>';
     	htmldetails +='</tbody></table></td></tr>';
     	html += htmldetails;
 
@@ -289,10 +283,10 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
     	//$('<tr>'+html+'</tr>').insertAfter($("#jobs").find('tr:last'));
     	$("#jobs").append(html);
         if(v.short == '1'){
-           // $("#short"+v.id).addClass("accepted");
-            $("#short"+v.id).text("Accept");   
-        }else if(v.short == '2'){
-            $("#short"+v.id).addClass("accepted");
+            $("#short"+v.id).addClass("shortlisted");
+            $("#short"+v.id).text("Shortlisted");   
+        }else if(v.short =='2'){
+            $("#short"+v.id).addClass("shortlisted blue");
             $("#short"+v.id).text("Accepted"); 
         }
     	num++;
@@ -308,7 +302,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 </script>
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-12 pageHeader">Matched Jobs</div>
+        <div class="col-sm-12 pageHeader">Matched Candidates</div>
     </div>
 </div>
 <br>
@@ -335,8 +329,9 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 		</div>
 		<br>
 		<div class="col-md-8">
+        
 			<h5>
-				Matched jobs for the Profile:<br><b> <span id="jobName"></span></b>
+				Matched Profiles for the job:<br><b> <span id="jobName"></span></b>
 			</h5>
 		 <div class="table-responsive-sm">
 			<table class="table table-hover table-fixed table-striped jobs" id="jobs">
@@ -349,19 +344,19 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 							Date Posted
 						</th>
 						<th scope="col">
-							Job Title
+							Job Titles
 						</th>
 						<th scope="col">
 							Locations
 						</th>
 						<th scope="col">
-							Company Name
+							Candidate Name
 						</th>
 						<th scope="col">
 							Match		
 						</th>
 						<th scope="col">
-							Shortlisted
+							Details
 						</th>
 					</tr>
 				</thead>
@@ -373,8 +368,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
 			</div>
 		</div>
 	</div>
-
-
+ 
 
 </div>
 <?php

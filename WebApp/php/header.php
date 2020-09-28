@@ -8,7 +8,28 @@ if(!isset($_SESSION['dropdown'])){
    $_SESSION['dropdown'] = '1'; 
 }
 
-require_once("../php/include.php")
+require_once("../php/include.php");
+if($_SESSION['type'] == '1'){
+  $imagePath = '../employer/images/'.$_SESSION["id"].'.jpg';
+  if(!file_exists($imagePath)){
+    $imagePath = '../css/images/nologo.png';
+  }else{
+    $imagePath = '../employer/images/'.$_SESSION["id"].'.jpg?t='.time();
+  }
+  
+}else{
+  $imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
+  if(!file_exists($imagePath)){
+    $imagePath = '../css/images/nologo.png';
+  }else{
+    $imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg?t='.time();
+  }
+  
+}
+//echo $imagePath;
+//if(!file_exists($imagePath)){
+//    $imagePath = '../css/images/nologo.png';
+//}
 ?>
 <script>
 $(document).ready(function () {

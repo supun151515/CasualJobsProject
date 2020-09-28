@@ -5,10 +5,7 @@ if($_SESSION['type'] != '2'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
-$imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
-if(!file_exists($imagePath)){
-    $imagePath = '../css/images/nologo.png';
-}
+ 
 ?>
 
 <link href="../css/jquery.tagsinput-revisited.min.css" rel="stylesheet" />
@@ -338,7 +335,7 @@ $("#asap").change(function(){
 					</p>
 				</div>
 				<div class="card-footer">
-					<a href="">Edit Profile</a>
+					<a href="../editprofile">Edit Profile</a>
 				</div>
 				<div class="card-footer">
 					<a href="../php/logout.php">Logout</a>

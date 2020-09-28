@@ -6,11 +6,7 @@ if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
-
-$imagePath = 'images/'.$_SESSION["id"].'.jpg';
-if(!file_exists($imagePath)){
-	$imagePath = '../css/images/nologo.png';
-}
+ 
 ?>
 <script>
 

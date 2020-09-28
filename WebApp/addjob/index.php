@@ -1,14 +1,12 @@
 <?php
 require_once("../php/header.php");
 require_once("../php/session.php");
-if($_SESSION['type'] != '2'){
+if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;
 }
-$imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg';
-if(!file_exists($imagePath)){
-    $imagePath = '../css/images/nologo.png';
-}
+
+
 ?>
 
 <link href="../css/jquery.tagsinput-revisited.min.css" rel="stylesheet" />
@@ -19,11 +17,15 @@ if(!file_exists($imagePath)){
 <script src="locations_sub.js"></script>
 
 <script>
-var jobtitle = ''
-var t1, t2, mon1, mon2, tue1, tue2, wed1, wed2, thu1, thu2, fri1, fri2, sat1, sat2, sun1, sun2;
+var jobid = '0';
+var locationVal = '0';
+var locationSub = '0';
+
 function Validate(){
 	return false;
 }
+
+var t1, t2, mon1, mon2, tue1, tue2, wed1, wed2, thu1, thu2, fri1, fri2, sat1, sat2, sun1, sun2;
 
 function getTotalHrs(){
 	t1 = $("#timefrom").jqxDateTimeInput('getDate');
@@ -34,7 +36,6 @@ function getTotalHrs(){
 	diffa = moment.utc(moment.duration(diffa, "minutes").asMilliseconds()).format("HH:mm");
 	$("#totalHours").html(diffa);
 }
-
 function getTotalHrsWeek(){
 	mon1 = $("#timefrommon").jqxDateTimeInput('getDate');
 	mon1 = moment(mon1);
@@ -85,174 +86,51 @@ function getTotalHrsWeek(){
 	var totsun = sun2.diff(sun1, 'minutes');
 	//totsun = moment.utc(moment.duration(totsun, "minutes").asMilliseconds()).format("HH:mm");
 	var finalhours = parseFloat(totmon + tottue + totwed + totthu + totfri + totsat + totsun);
-	//$("#totalHours").html(moment.utc(moment.duration(finalhours, "minutes").asMilliseconds()).format("HH:mm"));
+	
 	var newtotalHours = Math.floor(finalhours / 60) + ':' + finalhours % 60;
 	newtotalHours = moment.duration(newtotalHours, 'minutes');
- 
+
 	$("#totalHours").html(newtotalHours.format('HH:mm'));
+	//$("#totalHours").html(moment.utc(moment.duration(finalhours, "minutes").asMilliseconds()).format("HH:mm"));
 }
 
 
 $(document).ready(function () {
-var pathname = window.location.pathname;
-var url      = window.location.href;
-var jobID;
-try{
-var pieces = url.split("?");
-var pieces = pieces[1];
-pieces = pieces.split("&");
-
-var status = pieces[0];
-
-jobID = status.split("=");
-jobID = jobID[1];
- 
-} catch(err) {
-
-}
-$("#datestart, #dateend").jqxDateTimeInput({ formatString: "dd/MM/yyyy", width: '120px' });
-$("#timefrom, #timeto, .timeweek").jqxDateTimeInput({formatString: 'HH:mm', showTimeButton: true, showCalendarButton: false, width: '80px', editMode: 'full'});
 
 $("#payrate").keyup(function() {
     var $this = $(this);
     $this.val($this.val().replace(/[^\d.]/g, ''));        
 });
- 
-
-var parsedData;
- $.ajax({url:'loadData.php', type:'POST', data:{jobid:jobID}, async:false, success:function(data){
-        try{
-         parsedData = JSON.parse(data);
-        }catch(err){
-        console.log(err);
-        return false;
-        }
- 	
- 	var job = parsedData.job;
- 	var times = parsedData.times;
- 	var multijob = parsedData.multijob;
- 	var multilocation = parsedData.multilocation;
- 	if(job.multiJobTitle == '0'){
- 		$("#jobTitle").jqxDropDownList('checkItem','0');
- 	}else{
- 		$.each(multijob, function(k,v){
- 			$("#jobTitle").jqxDropDownList('checkItem', v.jobTitleid);
- 		})
- 	}
- 	  var items = $("#jobTitle").jqxDropDownList('getCheckedItems');
-  	  var checkedItems = "";
-      $.each(items, function (index) {
-          checkedItems += this.value + ",";
-      });
-      checkedItems = checkedItems.replace(/,\s*$/, "");
-      jobtitle = checkedItems;
-
-
- 	$("#jobtype").val(job.jobType);
- 	$("#location").jqxDropDownList('val', job.location);
- 	if(job.multiLocation == '0'){
- 		$("#location_sub").jqxDropDownList('checkItem', '0');
- 	}else{
- 		$.each(multilocation, function(k,v){
- 			$("#location_sub").jqxDropDownList('checkItem', v.locationSubid);
- 		})
- 	}
-	
-	$("#payrate").val(job.payRate);
-	$("#jobdes").val(job.jobDes);
-
-	$("#datestart").jqxDateTimeInput('setDate', new Date(job.startDate));
-	$("#dateend").jqxDateTimeInput('setDate', new Date(job.endDate));
-	if(job.startType == '1'){
-		$( "#ongoing" ).prop( "checked", true );
-		$("#datestart").jqxDateTimeInput({ disabled: true });
-	}
-	if(job.endType == '1'){
-		$( "#endno" ).prop( "checked", true );
-		$("#dateend").jqxDateTimeInput({ disabled: true });
-	}
- 
-	var fromTime = moment(job.fromTime, "HH:mm:ss").format("HH:ss");
-	var toTime = moment(job.toTime, "HH:mm:ss").format("HH:ss");
-	 
-	$("#timefrom").jqxDateTimeInput('setDate', fromTime);
-	$("#timeto").jqxDateTimeInput('setDate', toTime);
-
-	var totalHours = moment.duration(job.totalHours, 'minutes');
-	$("#totalHours").html(totalHours.format("HH:mm"));
-	if(job.timeDiff == '1'){
-		$( "#diff" ).prop( "checked", true );
-	 	$(".timeweektable").show();
-		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: true });
-
-		var mon1 = moment(times.mon1, "HH:mm:ss").format("HH:ss");
-		var mon2 = moment(times.mon2, "HH:mm:ss").format("HH:ss");
-		var tue1 = moment(times.tue1, "HH:mm:ss").format("HH:ss");
-		var tue2 = moment(times.tue2, "HH:mm:ss").format("HH:ss");
-		var wed1 = moment(times.wed1, "HH:mm:ss").format("HH:ss");
-		var wed2 = moment(times.wed2, "HH:mm:ss").format("HH:ss");
-		var thu1 = moment(times.thu1, "HH:mm:ss").format("HH:ss");
-		var thu2 = moment(times.thu2, "HH:mm:ss").format("HH:ss");
-		var fri1 = moment(times.fri1, "HH:mm:ss").format("HH:ss");
-		var fri2 = moment(times.fri2, "HH:mm:ss").format("HH:ss");
-		var sat1 = moment(times.sat1, "HH:mm:ss").format("HH:ss");
-		var sat2 = moment(times.sat2, "HH:mm:ss").format("HH:ss");
-		var sun1 = moment(times.sun1, "HH:mm:ss").format("HH:ss");
-		var sun2 = moment(times.sun2, "HH:mm:ss").format("HH:ss");
-
-		$("#timefrommon").jqxDateTimeInput('setDate', mon1);
-		$("#timetomon").jqxDateTimeInput('setDate', mon2);
-		$("#timefromtue").jqxDateTimeInput('setDate', tue1);
-		$("#timetotue").jqxDateTimeInput('setDate', tue2);
-		$("#timefromwed").jqxDateTimeInput('setDate', wed1);
-		$("#timetowed").jqxDateTimeInput('setDate', wed2);
-		$("#timefromthu").jqxDateTimeInput('setDate', thu1);
-		$("#timetothu").jqxDateTimeInput('setDate', thu2);
-		$("#timefromfri").jqxDateTimeInput('setDate', fri1);
-		$("#timetofri").jqxDateTimeInput('setDate', fri2);
-		$("#timefromsat").jqxDateTimeInput('setDate', sat1);
-		$("#timetosat").jqxDateTimeInput('setDate', sat2);
-		$("#timefromsun").jqxDateTimeInput('setDate', sun1);
-		$("#timetosun").jqxDateTimeInput('setDate', sun2);
-
-	}
-
-	$("#qualification").val(job.qualification);
-	$("#experience").val(job.experience);
-	$("#skills").val(job.skills);
-	$("#visa").val(job.visaType);
-	$("#license").val(job.license);
-	$("#vehicle").val(job.vehicle);
-	$("#ethnicity").val(job.ethnicity);
-	$("#age").val(job.age);
-	$("#gender").val(job.gender);
-
-
-}});
-
 $("#timefrom, #timeto, .timeweek").on('valueChanged', function (event) {
 	$("#diff").is(':checked') ? getTotalHrsWeek() : getTotalHrs();
 });
-
-
-$('#jobTitle').on('checkChange', function (event)
+jobid = $("#jobTitle").jqxDropDownList('getSelectedItem');
+if(jobid != null){
+	jobid = jobid.value;
+}else{
+	jobid = '0';
+}
+$('#jobTitle').on('change', function (event)
 {     
-	if (event.args) {
-    var item = event.args.item;
-    var value = item.value;
-
-	}
-  var items = $("#jobTitle").jqxDropDownList('getCheckedItems');
-  var checkedItems = "";
-      $.each(items, function (index) {
-          checkedItems += this.value + ",";
-      });
-      checkedItems = checkedItems.replace(/,\s*$/, "");
-      jobtitle = checkedItems;
-
+    var args = event.args;
+    if (args) {                      
+    var index = args.index;
+    var item = args.item;
+    jobid = item.value;
+	} 
 });
 
- 
+var parsedData;
+$.ajax({url:"tags.php", type:"POST", data:{jobid:jobid}, async:true, success:function(data){
+          try {
+            parsedData = JSON.parse(data);
+            }
+          catch(err) {
+            alertify.error(data);
+            return false;
+          }
+        }});
+
 
 $("#skills").tagsInput({
 	interactive: true,
@@ -266,7 +144,7 @@ $("#skills").tagsInput({
      	dataType: "json",
      	type:"POST",
      	data: {
-        	jobid: jobtitle
+        	jobid: jobid
      		},
 	     	success: function(data) {
 	        	response( $.map( data, function( item ) {
@@ -282,7 +160,8 @@ $("#skills").tagsInput({
 });
 
 
-
+$("#datestart, #dateend").jqxDateTimeInput({ formatString: "dd/MM/yyyy", width: '120px' });
+$("#timefrom, #timeto, .timeweek").jqxDateTimeInput({formatString: 'HH:mm', showTimeButton: true, showCalendarButton: false, width: '80px', editMode: 'full'});
 
 $("#diff").click(function(){
 	if($(this).is(':checked')){
@@ -294,26 +173,20 @@ $("#diff").click(function(){
 	}
 	});
 
-$("#finish").click(function(){
 
+
+$("#finish").click(function(){
+	var today = moment($.datepicker.formatDate('yy-mm-dd', new Date()), 'YYYY-MM-DD');
  
-  var today = moment($.datepicker.formatDate('yy-mm-dd', new Date()), 'YYYY-MM-DD');
-	if(jobtitle == '' ){
+	if(jobid == '0' ){
 		alertify.error("Please select the Job Title");
 		$('a[href="#step-1"]').trigger("click");
 		$("#jobTitle").jqxDropDownList('open' ); 
 		return false;
 	}
 	locationVal = $("#location").jqxDropDownList('getSelectedItem');
-	var locationSub = $("#location_sub").jqxDropDownList('getCheckedItems');
- 	var checkedItems = "";
-      $.each(locationSub, function (index) {
-          checkedItems += this.value + ",";
-      });
-      checkedItems = checkedItems.replace(/,\s*$/, "");
-      locationSub = checkedItems; 
- 
-	if(locationVal == null || locationSub == ''){
+	locationSub = $("#location_sub").jqxDropDownList('getSelectedItem');
+	if(locationVal == null || locationSub == null){
 		alertify.error("Please select the Location and sub location");
 		$('a[href="#step-1"]').trigger("click");
 		$("#location_sub").jqxDropDownList('open' ); 
@@ -329,22 +202,24 @@ $("#finish").click(function(){
 
 	var dateStart = moment($('#datestart').jqxDateTimeInput('getDate'), 'YYYY-MM-DD'); 
 	var dateEnd = moment($('#dateend').jqxDateTimeInput('getDate'), 'YYYY-MM-DD');
-	var diffDate = dateEnd.diff(dateStart, 'days');
 	if(today > dateStart){
-		if(!$("#asap").is(':checked')){
-		alertify.error("Invalid start date selected");
-		$('a[href="#step-2"]').trigger("click");
-		return false;
+		if(!$("#ongoing").is(':checked')){
+			alertify.error("Invalid start date selected");
+			$('a[href="#step-2"]').trigger("click");
+			return false;
 		}
+		
 	}
 	if(today > dateEnd){
 		if(!$("#endno").is(':checked')){
-		alertify.error("Invalid end date selected");
-		$('a[href="#step-2"]').trigger("click");
-		return false;
+			alertify.error("Invalid end date selected");
+			$('a[href="#step-2"]').trigger("click");
+			return false;
 		}
+		
 	}
-	if($("#asap").is(':checked') || $("#endno").is(':checked')){
+	var diffDate = dateEnd.diff(dateStart, 'days');
+	if($("#ongoing").is(':checked') || $("#endno").is(':checked')){
 
 	}else{
 		if(diffDate < 0 ){
@@ -353,6 +228,7 @@ $("#finish").click(function(){
 		return false;
 		}
 	}
+	
 
 	var totalHours = $("#totalHours").html();
 	if(totalHours == '' || totalHours == '0'){
@@ -362,12 +238,17 @@ $("#finish").click(function(){
 	}
 
 	var age1 = $("#age1").val();
+	var age2 = $("#age2").val();
 	if(age1 < '18'){
 		alertify.error("Invalid age selection");
 		$("#age1").focus();
 		return false;
 	}
-
+	if(age1 > age2) {
+		alertify.error("Invalid age selection");
+		$("#age1").focus();
+		return false;
+	}
    	t1 = $("#timefrom").jqxDateTimeInput('getDate');
 	t1 = moment(t1);
 	t2 = $("#timeto").jqxDateTimeInput('getDate');
@@ -379,12 +260,11 @@ $("#finish").click(function(){
    var endDateCheck = +$("#endno").is(':checked');
    var diffTimes = +$("#diff").is(':checked');
    var totalHours = $("#totalHours").html();
-   data.push({name:'update', value: '1'});
-   data.push({name:'jobid', value: jobID });
+   data.push({name:'add', value: '1'});
    data.push({name: 'dateAdd', value: dateNow});
-   data.push({name:'jobTitle', value: jobtitle});
+   data.push({name:'jobTitle', value: jobid});
    data.push({name:'Location', value: locationVal.value});
-   data.push({name:'LocationSub', value: locationSub});
+   data.push({name:'LocationSub', value: locationSub.value});
    data.push({name:'dateStart', value: moment(dateStart).format("YYYY-MM-DD")});
    data.push({name:'dateEnd', value: moment(dateEnd).format("YYYY-MM-DD")});
    data.push({name:'onGoing', value: onGoing});
@@ -411,41 +291,44 @@ $("#finish").click(function(){
 
    $.post("data.php", data, function(data){
        if(data == 'ok'){
-        alertify.alert("Success", "Your profile has been updated successfully", function(){
-          document.location = '../seeker';
+        alertify.alert("Success", "New job added successfully", function(){
+          document.location = '../employer';
         });
         
         return false;
-       }else {
+       }
+       else {
         alertify.alert("Error", "Unable to continue. Please contact your system administrator");
+        return false;
        }
     });
 
 });
 
-
-
 $("#endno").change(function(){
 	$(this).is(':checked') ? $("#dateend").jqxDateTimeInput({ disabled: true }) : $("#dateend").jqxDateTimeInput({ disabled: false });
 });
-$("#asap").change(function(){
+
+$("#ongoing").change(function(){
 	$(this).is(':checked') ? $("#datestart").jqxDateTimeInput({ disabled: true }) : $("#datestart").jqxDateTimeInput({ disabled: false });
 });
+
+ 
 
 });// end doc.ready
     
 </script>
-<title>Edit Job Profile</title>
+<title>Add New Job</title>
 <link href="index.css" rel="stylesheet" />
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-12 pageHeader">Job Seeker Edit Profile</div>
+        <div class="col-sm-12 pageHeader">Employer Add New Job</div>
     </div>
 </div>
 <br>
 <div class="container-fluid pb-5">
 	<div class="row">
-		<div class="col-md-4 imgContainer align-items-center">
+			<div class="col-md-4 imgContainer align-items-center">
 			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
@@ -465,7 +348,7 @@ $("#asap").change(function(){
 					<a href="../php/logout.php">Logout</a>
 				</div>
 			</div>
-		</div> <!-- end profile -->
+		</div> <!-- Profile end -->
 	
 	<div class="col-md-8">
 		<div class="container">
@@ -477,7 +360,7 @@ $("#asap").change(function(){
             </div>
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                <p><small>Availability</small></p>
+                <p><small>Job Timing</small></p>
             </div>
             <div class="stepwizard-step col-xs-3"> 
                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
@@ -495,6 +378,7 @@ $("#asap").change(function(){
             <div class="panel-heading">
                  <h3 class="panel-title">Job Details</h3>
             </div>
+            <br>
             <div class="panel-body">
              <div class="form-group row">
 				  <label class="col-md-2 control-label" for="jobtitle">Job Title</label>
@@ -506,8 +390,7 @@ $("#asap").change(function(){
 				  <label class="col-md-2 control-label" for="jobtype">Job Type</label>
 				  <div class="col-md-4">
 				    <select id="jobtype" name="jobtype" class="form-control">
-				    <option value="0" selected="">Any</option>
-				      <option value="1">Casual</option>
+				      <option value="1" selected="">Casual</option>
 				      <option value="2">Part-time</option>
 				      <option value="3">One-Off</option>
 				    </select>
@@ -526,16 +409,20 @@ $("#asap").change(function(){
 				  </div>
 			</div>
 			<div class="form-group row">
-				  <label class="col-md-2 control-label" for="payrate">Minimum Pay Rate: $/hour</label>  
+				  <label class="col-md-2 control-label" for="payrate">Pay Rate: $/hour</label>  
 				  <div class="col-md-2">
-				  <input id="payrate" name="payrate" type="text" placeholder="" class="form-control input-md" value="18.90" required="">
+				  <input id="payrate" name="payrate" type="text" placeholder="" class="form-control input-md" required="" value="18.90">
 				  </div>
 			</div>
-	
 			<div class="form-group row">
+				  <label class="col-md-2 control-label" for="jobdes">Job Description</label>
+				  <div class="col-md-6">                     
+				    <textarea class="form-control" id="jobdes" name="jobdes" rows="5"></textarea>
+				  </div>
+			</div>
+			<div class="form-group row" style="float: right;">
 				  <div class="col-md-6">
 				    <button id="singlebutton" name="singlebutton" class="btn btn-primary nextBtn pull-right">Next</button>
-				  
 				  </div>
 			</div>
 			</div>
@@ -543,22 +430,22 @@ $("#asap").change(function(){
         
         <div class="panel panel-primary setup-content" id="step-2">
             <div class="panel-heading">
-                 <h3 class="panel-title">Job Availability</h3>
+                 <h3 class="panel-title">Job Timing</h3>
             </div>
+            <br>
        	<div class="panel-body">
 				<div class="form-group row">
 				  <label class="col-md-2 control-label" for="dateend">Start Date</label>  
 				  <div class="col-md-4">
 				  <div id='datestart'></div>
 				  </div>
-				</div>
-
-				<div class="form-group row mt-n3">
-				<div class="col-md-2">
-				</div>
-					<div class="col-md-4 checkfont"><label for="asap">
-				      <input type="checkbox" name="asap" id="asap" value="1">
-				      ASAP
+				 </div>
+				 <div class="form-group row mt-n3">
+				 <div class="col-md-2">
+				 </div>
+				  <div class="col-md-4 checkfont"><label for="ongoing">
+				      <input type="checkbox" name="ongoing" id="ongoing" value="1">
+				      On Going
 				    </label>
 			    	</div>
 				</div>
@@ -568,14 +455,13 @@ $("#asap").change(function(){
 				  <div class="col-md-4">
 				  <div id='dateend'></div>
 				  </div>
+				 </div>
+				 <div class="form-group row mt-n3">
+				 <div class="col-md-2">
 				</div>
-
-				<div class="form-group row mt-n3">
-				<div class="col-md-2">
-				</div>
-					<div class="col-md-4 checkfont"><label for="endno">
+				  <div class="col-md-4 checkfont"><label for="endno">
 				      <input type="checkbox" name="endno" id="endno" value="1">
-				      Any day
+				      Not applicable
 				    </label>
 			    	</div>
 				</div>
@@ -591,7 +477,7 @@ $("#asap").change(function(){
 				  </div>
 				</div>
 				<div class="form-group row">
-					<div class="checkbox col-md-2 control-label">
+					<div class="checkbox">
 				    <label for="diff">
 				      <input type="checkbox" name="diff" id="diff" value="1">
 				      Different timing
@@ -652,7 +538,7 @@ $("#asap").change(function(){
 				</table>
 				</div>
 				<div>Total Hours <div id="totalHours"></div></div>
-			<div class="form-group row">
+			<div class="form-group row" style="float: right;">
 				  <div class="col-md-6">
 				    <button id="singlebutton" name="singlebutton" class="btn btn-primary nextBtn pull-right">Next</button>
 				  </div>
@@ -667,12 +553,11 @@ $("#asap").change(function(){
                  <h3 class="panel-title">Qualifications</h3>
             </div>
             <div class="panel-body">
-
             	<div class="form-group row">
-					  <label class="col-md-4 control-label" for="qualification"> Qualifications</label>
+					  <label class="col-md-4 control-label" for="experience">Minimum Qualification required</label>
 					  <div class="col-md-4">
 					    <select id="qualification" name="qualification" class="form-control">
-					      <option value="0">Prefer not to say</option>
+					      <option value="0">Not required</option>
 					      <option value="1">Ordinary level</option>
 					      <option value="2">College level</option>
 					      <option value="3">High-School level</option>
@@ -685,7 +570,7 @@ $("#asap").change(function(){
 					  <label class="col-md-4 control-label" for="experience">Experience</label>
 					  <div class="col-md-4">
 					    <select id="experience" name="experience" class="form-control">
-					      <option value="0">Prefer not to say</option>
+					      <option value="0">Any</option>
 					      <option value="1">1-3 Months</option>
 					      <option value="2">3-6 Months</option>
 					      <option value="3">6-12 Months</option>
@@ -699,7 +584,11 @@ $("#asap").change(function(){
 					      <input type="text" id="skills" name="skills" value=""><div style="font-size: 10px;">You can select skills from the list and press enter. Also you can add new tags. These new tags will be monitored by the site administrator.</div>
 					  </div>
 					  </div>
-					  <button id="" class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+					  <div class="form-group row" style="float: right;">
+				  		<div class="col-md-6">
+				    		<button id="singlebutton" name="singlebutton" class="btn btn-primary nextBtn pull-right">Next</button>
+				  		</div>
+			</div>
         </div>
         </div>
         
@@ -712,7 +601,7 @@ $("#asap").change(function(){
 					  <label class="col-md-4 control-label" for="visa">Visa Type</label>
 					  <div class="col-md-5">
 					    <select id="visa" name="visa" class="form-control">
-					      <option value="0">Prefer not to say</option>
+					      <option value="0">Any</option>
 					      <option value="1">Student Work Visa</option>
 					      <option value="2">General Work Visa</option>
 					      <option value="3">Working Holiday Visa</option>
@@ -725,7 +614,7 @@ $("#asap").change(function(){
 					  <label class="col-md-4 control-label" for="license">Driving License</label>
 					  <div class="col-md-4">
 					    <select id="license" name="license" class="form-control">
-					      <option value="0">Prefer not to say</option>
+					      <option value="0">Any</option>
 					      <option value="1">Full</option>
 					      <option value="2">Restricted</option>
 					      <option value="3">International</option>
@@ -734,20 +623,20 @@ $("#asap").change(function(){
 				</div>
 
 				<div class="form-group row">
-					  <label class="col-md-4 control-label" for="vehicle">Vehicle Preference</label>
+					  <label class="col-md-4 control-label" for="vehicle">Vehicle Requirement</label>
 					  <div class="col-md-4">
 					    <select id="vehicle" name="vehicle" class="form-control">
-					      <option value="0">No Vehicle</option>
+					      <option value="0">Not Required</option>
 					      <option value="1">Own Vehicle</option>
 					    </select>
 					  </div>
 				</div>
 
 				<div class="form-group row">
-					  <label class="col-md-4 control-label" for="ethnicity">Ethnicity Preference</label>
+					  <label class="col-md-4 control-label" for="ethnicity">Ethnicity Requirement</label>
 					  <div class="col-md-6">
 					    <select id="ethnicity" name="ethnicity" class="form-control">
-					      <option value="0">Prefer not to say</option>
+					      <option value="0">Any</option>
 					      <option value="1">European</option>
 					      <option value="2">Māori</option>
 					      <option value="3">Pasifika</option>
@@ -758,25 +647,32 @@ $("#asap").change(function(){
 				</div>
 
 				<div class="form-group row">
-					  <label class="col-md-4 control-label" for="age">Age</label>  
+					  <label class="col-md-4 control-label" for="age">Age Preference</label>  
 					  <div class="col-md-2">
-					  <input id="age1" name="age1" value="18" type="text" placeholder="" class="form-control input-md">
+					  <input id="age1" name="age1" value="18" type="number" placeholder="" class="form-control input-md">
 					  </div>
-					 
+					  <div class="col-md-2">
+					  <input id="age2" name="age2" value="55" type="number" placeholder="" class="form-control input-md">
+					  </div>
 				</div>
 
 				<div class="form-group row">
 					  <label class="col-md-4 control-label" for="gender">Gender Preference</label>
 					  <div class="col-md-4">
 					    <select id="gender" name="gender" class="form-control">
-					      <option value="0">Prefer not to say</option>
-					      <option value="1" selected="">Male</option>
+					      <option value="0">Any</option>
+					      <option value="1">Male</option>
 					      <option value="2">Female</option>
 					    </select>
 					  </div>
 				</div>
 
-                <button id="finish" class="btn btn-success pull-right" type="submit">Finish!</button>
+				<div class="form-group row" style="float: right;">
+				  <div class="col-md-6">
+				    <button id="finish" name="finish" type="submit" class="btn btn-success pull-right">Finish</button>
+				  </div>
+				</div>
+                
             </div>
         </div>
     </form>

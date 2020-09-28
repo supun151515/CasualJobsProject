@@ -37,6 +37,9 @@
         <p>
           <a href="../contactus">Contact us</a>
         </p>
+        <p>
+          <a href="../usermanual.pdf">Contact us</a>
+        </p>
       </div>
       <!-- Grid column -->
 
