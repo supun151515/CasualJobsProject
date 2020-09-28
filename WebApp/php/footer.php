@@ -18,7 +18,7 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-      <img src="../css/images/SKRlogo.png" alt="" class="img-fluid" style="float: right;">
+      <img src="../css/images/SKRlogo.png" alt="" class="" style="float: center;">
       </div>
        <hr class="w-100 clearfix d-md-none">
 
@@ -38,7 +38,7 @@
           <a href="../contactus">Contact us</a>
         </p>
         <p>
-          <a href="../usermanual.pdf">Contact us</a>
+          <a href="../usermanual.pdf" target="_blank">User Manual</a>
         </p>
       </div>
       <!-- Grid column -->

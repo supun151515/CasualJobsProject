@@ -9,6 +9,7 @@ if(!isset($_SESSION['dropdown'])){
 }
 
 require_once("../php/include.php");
+if(isset($_SESSION['type'])){
 if($_SESSION['type'] == '1'){
   $imagePath = '../employer/images/'.$_SESSION["id"].'.jpg';
   if(!file_exists($imagePath)){
@@ -23,8 +24,8 @@ if($_SESSION['type'] == '1'){
     $imagePath = '../css/images/nologo.png';
   }else{
     $imagePath = '../seeker/images/'.$_SESSION["id"].'.jpg?t='.time();
-  }
-  
+  } 
+}
 }
 //echo $imagePath;
 //if(!file_exists($imagePath)){
