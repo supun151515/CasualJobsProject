@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if(!isset($_SESSION['email'])) {
-	//header('Location: ../login');
-	echo "<script type='text/javascript'> document.location = '../login'; </script>";
+	header('Location: ../login');
+	//echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
-require_once("../php/header.php");
 require_once("../php/session.php");
+require_once("../php/header.php");
+
 if($_SESSION['type'] != '2'){
 	echo "You are not allowed to access this feature";
 	return false;
@@ -169,8 +170,8 @@ var parsedData;
 		$("#dateend").jqxDateTimeInput({ disabled: true });
 	}
  
-	var fromTime = moment(job.fromTime, "HH:mm:ss").format("HH:ss");
-	var toTime = moment(job.toTime, "HH:mm:ss").format("HH:ss");
+	var fromTime = moment(job.fromTime, "HH:mm:ss").format("HH:mm");
+	var toTime = moment(job.toTime, "HH:mm:ss").format("HH:mm");
 	 
 	$("#timefrom").jqxDateTimeInput('setDate', fromTime);
 	$("#timeto").jqxDateTimeInput('setDate', toTime);
@@ -182,20 +183,20 @@ var parsedData;
 	 	$(".timeweektable").show();
 		$("#timefrom, #timeto").jqxDateTimeInput({ disabled: true });
 
-		var mon1 = moment(times.mon1, "HH:mm:ss").format("HH:ss");
-		var mon2 = moment(times.mon2, "HH:mm:ss").format("HH:ss");
-		var tue1 = moment(times.tue1, "HH:mm:ss").format("HH:ss");
-		var tue2 = moment(times.tue2, "HH:mm:ss").format("HH:ss");
-		var wed1 = moment(times.wed1, "HH:mm:ss").format("HH:ss");
-		var wed2 = moment(times.wed2, "HH:mm:ss").format("HH:ss");
-		var thu1 = moment(times.thu1, "HH:mm:ss").format("HH:ss");
-		var thu2 = moment(times.thu2, "HH:mm:ss").format("HH:ss");
-		var fri1 = moment(times.fri1, "HH:mm:ss").format("HH:ss");
-		var fri2 = moment(times.fri2, "HH:mm:ss").format("HH:ss");
-		var sat1 = moment(times.sat1, "HH:mm:ss").format("HH:ss");
-		var sat2 = moment(times.sat2, "HH:mm:ss").format("HH:ss");
-		var sun1 = moment(times.sun1, "HH:mm:ss").format("HH:ss");
-		var sun2 = moment(times.sun2, "HH:mm:ss").format("HH:ss");
+		var mon1 = moment(times.mon1, "HH:mm:ss").format("HH:mm");
+		var mon2 = moment(times.mon2, "HH:mm:ss").format("HH:mm");
+		var tue1 = moment(times.tue1, "HH:mm:ss").format("HH:mm");
+		var tue2 = moment(times.tue2, "HH:mm:ss").format("HH:mm");
+		var wed1 = moment(times.wed1, "HH:mm:ss").format("HH:mm");
+		var wed2 = moment(times.wed2, "HH:mm:ss").format("HH:mm");
+		var thu1 = moment(times.thu1, "HH:mm:ss").format("HH:mm");
+		var thu2 = moment(times.thu2, "HH:mm:ss").format("HH:mm");
+		var fri1 = moment(times.fri1, "HH:mm:ss").format("HH:mm");
+		var fri2 = moment(times.fri2, "HH:mm:ss").format("HH:mm");
+		var sat1 = moment(times.sat1, "HH:mm:ss").format("HH:mm");
+		var sat2 = moment(times.sat2, "HH:mm:ss").format("HH:mm");
+		var sun1 = moment(times.sun1, "HH:mm:ss").format("HH:mm");
+		var sun2 = moment(times.sun2, "HH:mm:ss").format("HH:mm");
 
 		$("#timefrommon").jqxDateTimeInput('setDate', mon1);
 		$("#timetomon").jqxDateTimeInput('setDate', mon2);
@@ -443,7 +444,7 @@ $("#asap").change(function(){
 <div class="container-fluid pb-5">
 	<div class="row">
 		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>

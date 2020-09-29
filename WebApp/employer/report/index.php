@@ -1,8 +1,8 @@
 <?php
-
+include ('../../php/session2.php');
 include("../../php/mpdf/autoload.php");
 include ("../../php/db.php");
-include ('../../php/session.php');
+
 if (session_status() == PHP_SESSION_NONE) {
    session_start();
 }

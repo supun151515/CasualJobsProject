@@ -50,6 +50,7 @@ a:hover{
 }
 .img-thumbnail{
   border-radius: 20%;
+  max-height: 200px;
 }
 .btn-xs{
   font-size:10px;

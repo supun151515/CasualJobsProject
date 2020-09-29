@@ -14,6 +14,10 @@
   overflow: hidden;
 
 }
+.img-thumbnail{
+  border-radius: 20% !important;
+  max-height: 200px !important;
+}
 .profileImg {
 	width: 50%;
 	height: auto;

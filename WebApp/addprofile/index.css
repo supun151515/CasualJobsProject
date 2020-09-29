@@ -21,6 +21,10 @@
 .imgContainer {
 	text-align: center;
 }
+.img-thumbnail{
+  border-radius: 20%;
+  max-height: 200px;
+}
 /* Latest compiled and minified CSS included as External Resource*/
 
 /* Optional theme */

@@ -1,6 +1,7 @@
 <?php
-require_once("../php/header.php");
 require_once("../php/session.php");
+require_once("../php/header.php");
+
 if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;
@@ -329,7 +330,7 @@ $("#ongoing").change(function(){
 <div class="container-fluid pb-5">
 	<div class="row">
 			<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>
@@ -417,7 +418,7 @@ $("#ongoing").change(function(){
 			<div class="form-group row">
 				  <label class="col-md-2 control-label" for="jobdes">Job Description</label>
 				  <div class="col-md-6">                     
-				    <textarea class="form-control" id="jobdes" name="jobdes" rows="5"></textarea>
+				    <textarea class="form-control" id="jobdes" name="jobdes" rows="5" maxlength="500"></textarea>
 				  </div>
 			</div>
 			<div class="form-group row" style="float: right;">

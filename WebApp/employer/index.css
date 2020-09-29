@@ -14,10 +14,7 @@
   overflow: hidden;
 
 }
-.profileImg {
-	width: 50%;
-	height: auto;
-}
+ 
 .imgContainer {
 	text-align: center;
 }
@@ -31,6 +28,7 @@
 }
 .img-thumbnail{
   border-radius: 20%;
+  max-height: 200px;
 }
 .delete{
   color: red;

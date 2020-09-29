@@ -1,7 +1,7 @@
 <?php
+require_once("../php/session.php");
 require_once("../php/header.php");
 
-require_once("../php/session.php");
 if($_SESSION['type'] != '1'){
 	echo "You are not allowed to access this feature";
 	return false;

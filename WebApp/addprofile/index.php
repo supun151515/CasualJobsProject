@@ -1,6 +1,7 @@
 <?php
-require_once("../php/header.php");
 require_once("../php/session.php");
+require_once("../php/header.php");
+
 if($_SESSION['type'] != '2'){
 	echo "You are not allowed to access this feature";
 	return false;
@@ -250,6 +251,7 @@ $("#finish").click(function(){
 	t1 = moment(t1);
 	t2 = $("#timeto").jqxDateTimeInput('getDate');
 	t2 = moment(t2);
+	getTotalHrsWeek();
    var dateNow = Date.now(); 
    dateNow = moment(dateNow).format('YYYY-MM-DD');
    var data = $("#myform").serializeArray();
@@ -322,7 +324,7 @@ $("#asap").change(function(){
 <div class="container-fluid pb-5">
 	<div class="row">
 		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="<?php echo $imagePath; ?>" class="rounded-circle pb-2" width="auto" height="200" />
+			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
 			<div class="card bg-default">
 				<h5 class="card-header">
 					<?php echo $_SESSION['userName']; ?>

@@ -10,11 +10,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if(isset($_SESSION['email'])){
 	if($_SESSION['type'] == 1){
-		//header('Location: ../employer');
-		echo "<script type='text/javascript'> document.location = '../employer'; </script>";
+		header('Location: ../employer');
+		//echo "<script type='text/javascript'> document.location = '../employer'; </script>";
 	}else {
-		//header('Location: ../seeker');
-		echo "<script type='text/javascript'> document.location = '../seeker'; </script>";
+		header('Location: ../seeker');
+		//echo "<script type='text/javascript'> document.location = '../seeker'; </script>";
 	}
 }
 ?>

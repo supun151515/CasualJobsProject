@@ -41,9 +41,11 @@
 }
 .timetable1, .timetable3, .timetable5 {
 	width: 15%;
+ 
 }
 .timetable2, .timetable4, .timetable6 {
 	width: 20%;
+
 }
 .q1, .q3, .q5 {
 	width: 15%;

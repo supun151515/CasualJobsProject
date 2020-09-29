@@ -1,11 +1,36 @@
 <?php
 require_once("../php/header.php");
 ?>
-<script src="https://www.addy.co.nz/scripts/addy.js?key=843ca34fb0434e2499dc58718cc23bb7&loadcss=true" async defer>
-</script>
+ 
 <script src="../js/image_upload.js"></script>
 <script>
+var addyKey = '493a57297bdd4b40b7decdf09d15b85c';
+function initAddy() {
+  var addyComplete = new AddyComplete(document.getElementById('address_line_1'));
+  addyComplete.options.excludePostBox = false;
+  addyComplete.fields = {
+    address1: document.getElementById('address_line_1'),
+    address2: document.getElementById('address_line_2'),
+    suburb: document.getElementById('suburb'),
+    city: document.getElementById('city'),
+    postcode: document.getElementById('postcode'),
+  }
+}
+
+(function (d, w) {
+  // Add the address autocomplete JavaScript
+  var s = d.createElement('script');
+  var addyUrl = 'https://www.addy.co.nz/scripts/addy.js';
+  s.src = addyUrl + '?loadcss=true&enableLocation=true&key=' + addyKey;
+  s.type = 'text/javascript';
+  s.async = 1;
+  s.onload=initAddy;
+  d.body.appendChild(s);
+})(document, window);
+
 $(document).ready(function () {
+
+
 
 $("#photoimg").change(function(e){
   $("#imagePath").val(this.value);

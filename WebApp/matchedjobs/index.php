@@ -1,6 +1,7 @@
 <?php
-require_once("../php/header.php");
 include ('../php/session.php');
+require_once("../php/header.php");
+
 $_SESSION['dropdown'] = '1';
 require_once("../php/session.php");
 if($_SESSION['type'] != '1'){

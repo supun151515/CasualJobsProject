@@ -1,6 +1,7 @@
 <?php
-require_once("../php/header.php");
 require_once("../php/sessionPanel.php");
+require_once("../php/header.php");
+
 
 ?>
 <script>
