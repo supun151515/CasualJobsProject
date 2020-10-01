@@ -287,9 +287,11 @@ $("#finish").click(function(){
    data.push({name:'sun1', value: moment(sun1).format('HH:mm')});
    data.push({name:'sun2', value: moment(sun2).format('HH:mm')});
 
+LockPage();
 
    $.post("data.php", data, function(data){
        if(data == 'ok'){
+       	UnlockPage();
         alertify.alert("Success", "New Profile has been added successfully", function(){
           document.location = '../seeker';
         });

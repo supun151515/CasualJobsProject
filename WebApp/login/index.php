@@ -32,8 +32,10 @@ function Login_Data(){
  var email = $("#email").val();
  var pass = $("#password").val();
  //var type = $("#userType").val();
+ LockPage();
  $.post("check.php",{ email: email, password: pass},
       function(data) {
+        UnlockPage();
         if(data == 'ok'){
           location.reload();
         }else{

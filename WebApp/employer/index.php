@@ -11,12 +11,15 @@ if($_SESSION['type'] != '1'){
 <script>
 
 function loadData(){
+LockPage();
 var parsedData;
 $.ajax({url:"data.php", type:"POST", data:{LoadData:'LoadData'}, async:true, success:function(data){
+UnlockPage();
           try {
             parsedData = JSON.parse(data);
             }
           catch(err) {
+          	UnlockPage();
             alertify.error(data);
             return false;
           }
@@ -51,8 +54,9 @@ $(document).on("click", ".delete", function(e){
 	var jobid = this.id;
 
 	alertify.confirm('Confirm Delete', 'Are you sure, you want to delete this job post?', function(){ 
-
+				LockPage();
 				$.ajax({url:'deletejob.php', type:'POST', async:false, data:{sendType: 'delete', jobID:jobid}, success:function(data){
+					UnlockPage();
 			        try{
 			        if(data=='ok'){
 			            loadData();
@@ -91,7 +95,9 @@ $(document).on("click", ".downloadcv", function(e){
 	
 	var created_date = moment().format('YYYY-MM-DD');
     var created_time = moment().format('hh:mm a');
+    LockPage();
     $.ajax({url:'downloadcv.php', type:'POST', async:false, data:{matchid:matchid, created_date:created_date, created_time:created_time}, success:function(data){
+    	UnlockPage();
         try{
         if(data=='ok'){
             window.open("report");
@@ -109,7 +115,9 @@ $(document).on("click", ".downloadcv", function(e){
 
 $("#reload").click(function(){
 	var parsedData;
+	LockPage();
 	$.ajax({url:"data.php", type:"POST", data:{Reload:'Reload'}, async:true, success:function(data){
+		UnlockPage();
           try {
             parsedData = JSON.parse(data);
             }
@@ -127,6 +135,7 @@ $("#reload").click(function(){
      }});
 });
 
+ 
 
 });
 </script>
@@ -139,6 +148,7 @@ $("#reload").click(function(){
     </div>
 </div>
 <br>
+ 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4 imgContainer align-items-center">

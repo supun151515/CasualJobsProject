@@ -118,9 +118,10 @@ $("#payrate").keyup(function() {
     var $this = $(this);
     $this.val($this.val().replace(/[^\d.]/g, ''));        
 });
-
+LockPage();
 var parsedData;
  $.ajax({url:'loadData.php', type:'POST', data:{jobid:jobID}, async:false, success:function(data){
+ 	UnlockPage();
         try{
          parsedData = JSON.parse(data);
         }catch(err){
@@ -397,8 +398,10 @@ $("#finish").click(function(){
    data.push({name:'sun1', value: moment(sun1).format('HH:mm')});
    data.push({name:'sun2', value: moment(sun2).format('HH:mm')});
 
+LockPage();
 
    $.post("data.php", data, function(data){
+   	UnlockPage();
        if(data == 'ok'){
         alertify.alert("Success", "Your job has been updated successfully", function(){
           document.location = '../employer';

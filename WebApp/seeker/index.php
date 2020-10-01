@@ -13,7 +13,9 @@ if($_SESSION['type'] != '2'){
 function loadData(){
 	var parsedData;
 	var profiles;
+	LockPage();
 	$.ajax({url:"data.php", type:"POST", async:true, success:function(data){
+		UnlockPage();
           try {
             parsedData = JSON.parse(data);
             profiles = parsedData.profiles;
@@ -78,8 +80,9 @@ $(document).on("click", ".delete", function(e){
 	var jobid = this.id;
 
 	alertify.confirm('Confirm Delete', 'Are you sure, you want to delete this profile?', function(){ 
-
+			LockPage();
 				$.ajax({url:'deleteprofile.php', type:'POST', async:false, data:{sendType: 'delete', jobID:jobid}, success:function(data){
+					UnlockPage();
 			        try{
 			        if(data=='ok'){
 			            loadData();
@@ -106,7 +109,9 @@ $(document).on("click", ".downloadcv", function(e){
 	
 	var created_date = moment().format('YYYY-MM-DD');
     var created_time = moment().format('hh:mm a');
+    LockPage();
     $.ajax({url:'downloadcv.php', type:'POST', async:false, data:{matchid:matchid, created_date:created_date, created_time:created_time}, success:function(data){
+    	UnlockPage();
         try{
         if(data=='ok'){
             window.open("report");

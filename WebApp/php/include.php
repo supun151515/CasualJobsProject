@@ -22,7 +22,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <link href="../css/nav.css" rel="stylesheet" />
 <link href="../css/footer.css" rel="stylesheet" />
 <link href="../css/fonts.css" rel="stylesheet" />
-<link href="../css/main.css" rel="stylesheet" />
+<link href="../css/main.css?supun=1" rel="stylesheet" />
 
 <script src="../js/modernizr-2.8.3.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,5 +37,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <script src="../js/alertify.min.js"></script>
 <script src="../js/jqx-all.js"></script>
+<script src="../js/include.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-replace-svg="nest"></script>
 </head>
+<body>
+<div class="lock_page_div">
+<div><img draggable="false" src="../css/images/loading.gif"></div>
+</div> 
+</body>

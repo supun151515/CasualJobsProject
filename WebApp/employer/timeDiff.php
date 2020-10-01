@@ -115,43 +115,58 @@ function AddToMatchedTable($rowjob, $rowprofile, $locationSub, $con){
 	} 
 
 	$totalMatch = 0;
-	$total1 = (int)$jobType + (int)$locationSub + (int)$payRate;
-	$total1 = $total1 / 3;
-	$total1 = number_format($total1);
+	$total1 = (int)$jobType;
+	$total2 = (int)$locationSub;
+	$total3 = (int)$payRate;
+	//$total1 = $total1 / 3;
+	//$total1 = number_format($total1);
+ 
 
-	$total2 = (int)$startDate + (int)$endDate;
-	$total2 = $total2 /2;
-	$total2 = number_format($total2);
+	$total4 = (int)$startDate;
+	$total5 = (int)$endDate;
+	//$total2 = $total2 /2;
+	//$total2 = number_format($total2);
 	
 
 	if($week['diffdays'] == 0) {
 		$total2days = $week['mon'] + $week['tue'] + $week['wed'] + $week['thu'] + $week['fri'] + $week['sat'] + $week['sun'];
-		$total2days = $total2days / 7;
-		$total3 = (int)$total2days;
+		$total2days = (int)$total2days / 7;
+		$total6 = (int)$total2days;
 	}else{
 		$total2days = $week['t1'] + $week['t2'];
 		$total2days = (int)$total2days / 2;
-		$total4 = $total2days;
+		$total6 =(int)$total2days;
 	}
+	//echo $total6.' - '. $rowjob->id.'<br>';
+ //echo $total6.' '.$total1.'<br>';
+	$total7 = (int)$qualificationsOther['qualification'];
+	$total8 = (int)$qualificationsOther['experience'];
+	$total9 = (int)$qualificationsOther['skills'];
+	$total10 = (int)$qualificationsOther['visaType'];
+	$total11 = (int)$qualificationsOther['license'];
+	$total12 = (int)$qualificationsOther['vehicle'];
+	$total13 = (int)$qualificationsOther['ethnicity'];
+	$total14 = (int)$qualificationsOther['age'];
+	$total15 = (int)$qualificationsOther['gender'];
+	//$total5 = (int)$total5 / 9;
 
-	$total5 = $qualificationsOther['qualification'] + $qualificationsOther['experience'] + $qualificationsOther['skills'] + $qualificationsOther['visaType'] + $qualificationsOther['license'] + $qualificationsOther['vehicle'] + $qualificationsOther['ethnicity'] + $qualificationsOther['age'] + $qualificationsOther['gender'];
-	$total5 = (int)$total5 / 9;
+	$totalMatch = (int)$total1 + (int)$total2 + (int)$total3  + (int)$total4 + (int)$total5 + (int)$total6 + (int)$total7 + (int)$total8 + (int)$total9 + (int)$total10 + (int)$total11 + (int)$total12 + (int)$total13 + (int)$total14 + (int)$total15;
 
-	$totalMatch = $total1 + $total2 + $total3 + $total4 + $total5;
-	$tatalMatch = $totalMatch / 5;
+	$totalMatch = (int)$totalMatch / (int)15;
+ 
 
 	$smt=$con->prepare("SELECT * FROM jobmatch WHERE jobid= ? AND profileid=?");
 	$smt->execute(array($rowjob->id, $rowprofile->id));
 	$rowCount = $smt->rowCount();
 	if($rowCount == 0){
 		$smt = $con->prepare("INSERT INTO jobmatch (empid, seekerid, jobid, profileid, jobType, locationSub, payRate, startDate, EndDate, t1, t2, noWeek, mon, tue, wed, thu, fri, sat, sun, qualification, experience, skills, visa, license, vehicle, ethnicity, age, gender, totalMatch) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-		$smt->execute(array($empid, $seekerid, $rowjob->id, $rowprofile->id, $jobType, $locationSub, $payRate, $startDate, $endDate, $week['t1'], $week['t2'], $week['diffdays'], $week['mon'], $week['tue'], $week['wed'], $week['thu'], $week['fri'], $week['sat'], $week['sun'], $qualificationsOther['qualification'], $qualificationsOther['experience'], $qualificationsOther['skills'], $qualificationsOther['visaType'], $qualificationsOther['license'], $qualificationsOther['vehicle'], $qualificationsOther['ethnicity'], $qualificationsOther['age'], $qualificationsOther['gender'], $tatalMatch));
+		$smt->execute(array($empid, $seekerid, $rowjob->id, $rowprofile->id, $jobType, $locationSub, $payRate, $startDate, $endDate, $week['t1'], $week['t2'], $week['diffdays'], $week['mon'], $week['tue'], $week['wed'], $week['thu'], $week['fri'], $week['sat'], $week['sun'], $qualificationsOther['qualification'], $qualificationsOther['experience'], $qualificationsOther['skills'], $qualificationsOther['visaType'], $qualificationsOther['license'], $qualificationsOther['vehicle'], $qualificationsOther['ethnicity'], $qualificationsOther['age'], $qualificationsOther['gender'], $totalMatch));
 	}else{
 		if(isset($_SESSION['updateMatch'])){
 			if($_SESSION['updateMatch'] == '1'){
 				$sql = "UPDATE jobmatch SET jobType=?,locationSub=?, payRate=?, startDate=?, EndDate=?, t1=?, t2=?, noWeek=?, mon=?, tue=?, wed=?, thu=?, fri=?, sat=?, sun=?, qualification=?, experience=?, skills=?, visa=?, license=?, vehicle=?, ethnicity=?, age=?, gender=?, totalMatch=? WHERE jobid=? AND profileid=?";
 				$smt = $con->prepare($sql);
-				$smt->execute(array($jobType, $locationSub, $payRate, $startDate, $endDate, $week['t1'], $week['t2'], $week['diffdays'], $week['mon'], $week['tue'], $week['wed'], $week['thu'], $week['fri'], $week['sat'], $week['sun'], $qualificationsOther['qualification'], $qualificationsOther['experience'], $qualificationsOther['skills'], $qualificationsOther['visaType'], $qualificationsOther['license'], $qualificationsOther['vehicle'], $qualificationsOther['ethnicity'], $qualificationsOther['age'], $qualificationsOther['gender'], $tatalMatch, $rowjob->id, $rowprofile->id));
+				$smt->execute(array($jobType, $locationSub, $payRate, $startDate, $endDate, $week['t1'], $week['t2'], $week['diffdays'], $week['mon'], $week['tue'], $week['wed'], $week['thu'], $week['fri'], $week['sat'], $week['sun'], $qualificationsOther['qualification'], $qualificationsOther['experience'], $qualificationsOther['skills'], $qualificationsOther['visaType'], $qualificationsOther['license'], $qualificationsOther['vehicle'], $qualificationsOther['ethnicity'], $qualificationsOther['age'], $qualificationsOther['gender'], $totalMatch, $rowjob->id, $rowprofile->id));
 			 
 			}
 			

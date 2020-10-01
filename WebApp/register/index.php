@@ -75,7 +75,9 @@ $("#register").click(function(){
     return false;
   }
    var data = $("#imageform").serialize();
+   LockPage();
    $.post("data.php", data, function(data){
+    UnlockPage();
        if(data == 'ok'){
         alertify.alert("Success", "Your registration has been succeeded, Please login", function(){
           window.location.replace("../login");

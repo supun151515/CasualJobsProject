@@ -122,6 +122,7 @@ $('#jobTitle').on('change', function (event)
 });
 
 var parsedData;
+
 $.ajax({url:"tags.php", type:"POST", data:{jobid:jobid}, async:true, success:function(data){
           try {
             parsedData = JSON.parse(data);
@@ -289,8 +290,9 @@ $("#finish").click(function(){
    data.push({name:'sun1', value: moment(sun1).format('HH:mm')});
    data.push({name:'sun2', value: moment(sun2).format('HH:mm')});
 
-
+LockPage();
    $.post("data.php", data, function(data){
+   	UnlockPage();
        if(data == 'ok'){
         alertify.alert("Success", "New job added successfully", function(){
           document.location = '../employer';

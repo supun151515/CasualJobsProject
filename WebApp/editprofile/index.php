@@ -34,8 +34,9 @@ $(document).ready(function () {
 
 $("#deleteprofile").click(function(){
   alertify.confirm('Confirm Delete', 'Are you sure, you want to delete you profile?<br>This will delete all your posts and matchings.', function(){ 
-
+LockPage();
         $.ajax({url:'deleteprofile.php', type:'POST', async:false, data:{sendType: 'delete'}, success:function(data){
+          UnlockPage();
               try{
               if(data=='ok'){
                   location.reload();
@@ -61,7 +62,9 @@ $("#imagechanged").val('0');
      $("#imagechanged").val('1');
   });
 var parsedData;
+LockPage();
  $.ajax({url:'loadData.php', type:'POST', async:false, success:function(data){
+  UnlockPage();
         try{
          parsedData = JSON.parse(data);
         }catch(err){
@@ -141,7 +144,9 @@ $("#register").click(function(){
     return false;
   }
    var data = $("#imageform").serialize();
+   LockPage();
    $.post("data.php", data, function(data){
+    UnlockPage();
        if(data == 'ok'){
         alertify.alert("Success", "Your profile has been updated successfully", function(){
           //window.location.replace("../login");

@@ -40,7 +40,9 @@ $(document).on("click", ".cv", function(e){
     var matchid=this.id;
     var created_date = moment().format('YYYY-MM-DD');
     var created_time = moment().format('hh:mm a');
+    LockPage();
     $.ajax({url:'downloadcv.php', type:'POST', async:false, data:{matchid:matchid, created_date:created_date, created_time:created_time}, success:function(data){
+        UnlockPage();
         try{
         if(data=='ok'){
             window.open("report");
@@ -81,7 +83,9 @@ $(document).on("click", ".short", function(e){
     }
     if ( $( this ).hasClass( "accepted" ) ){
         alertify.confirm('Confirm Decline', 'Are you sure, you would like to decline this job', function(){ 
+            LockPage();
         $.ajax({url:'short.php', type:'POST', async:false, data:{short:"remove", profileID:profileID, matchid:matchid}, success:function(data){
+            UnlockPage();
         try{
         if(data=='ok'){
             thishref.removeClass("accepted");
@@ -98,7 +102,9 @@ $(document).on("click", ".short", function(e){
     });
     }else{
     alertify.confirm('Confirm Shortlist', 'Are you sure, you would like to accept this job', function(){ 
+        LockPage();
         $.ajax({url:'short.php', type:'POST', async:false, data:{short:"add", profileID:profileID, matchid:matchid}, success:function(data){
+            UnlockPage();
         try{
         if(data=='ok'){
             thishref.addClass("accepted");
@@ -121,8 +127,9 @@ $(document).on("click", ".short", function(e){
 });
 
 var parsedData;
-
+LockPage();
 $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, success:function(data){
+    UnlockPage();
     try{
         parsedData = JSON.parse(data);
         var jobs = parsedData.job;
