@@ -128,15 +128,28 @@ function AddToMatchedTable($rowjob, $rowprofile, $locationSub, $con){
 	//$total2 = number_format($total2);
 	
 
-	if($week['diffdays'] == 0) {
-		$total2days = $week['mon'] + $week['tue'] + $week['wed'] + $week['thu'] + $week['fri'] + $week['sat'] + $week['sun'];
-		$total2days = (int)$total2days / 7;
-		$total6 = (int)$total2days;
-	}else{
-		$total2days = $week['t1'] + $week['t2'];
-		$total2days = (int)$total2days / 2;
-		$total6 =(int)$total2days;
-	}
+//	if($week['diffdays'] == 0) {
+		$total6mon = (int)$week['mon'];
+		$total6tue = (int)$week['tue'];
+		$total6wed = (int)$week['wed'];
+		$total6thu = (int)$week['thu'];
+		$total6fri = (int)$week['fri'];
+		$total6sat = (int)$week['sat'];
+		$total6sun = (int)$week['mon'];
+		$total6t1 =(int)$week['t1'];
+		$total6t2 =(int)$week['t2'];
+ 		
+//	}else{
+		$total6mon = (int)$week['mon'];
+		$total6tue = (int)$week['tue'];
+		$total6wed = (int)$week['wed'];
+		$total6thu = (int)$week['thu'];
+		$total6fri = (int)$week['fri'];
+		$total6sat = (int)$week['sat'];
+		$total6sun = (int)$week['mon'];
+		$total6t1 =(int)$week['t1'];
+		$total6t2 =(int)$week['t2'];
+//	}
 	//echo $total6.' - '. $rowjob->id.'<br>';
  //echo $total6.' '.$total1.'<br>';
 	$total7 = (int)$qualificationsOther['qualification'];
@@ -150,9 +163,15 @@ function AddToMatchedTable($rowjob, $rowprofile, $locationSub, $con){
 	$total15 = (int)$qualificationsOther['gender'];
 	//$total5 = (int)$total5 / 9;
 
-	$totalMatch = (int)$total1 + (int)$total2 + (int)$total3  + (int)$total4 + (int)$total5 + (int)$total6 + (int)$total7 + (int)$total8 + (int)$total9 + (int)$total10 + (int)$total11 + (int)$total12 + (int)$total13 + (int)$total14 + (int)$total15;
+	$totalMatch = (int)$total1 + (int)$total2 + (int)$total3  + (int)$total4 + (int)$total5 + (int)$total6t1 + (int)$total6t2 + (int)$total6mon + (int)$total6tue + (int)$total6wed + (int)$total6thu + (int)$total6fri + (int)$total6sat + (int)$total6sun + (int)$total7 + (int)$total8 + (int)$total9 + (int)$total10 + (int)$total11 + (int)$total12 + (int)$total13 + (int)$total14 + (int)$total15;
 
-	$totalMatch = (int)$totalMatch / (int)15;
+	if($week['diffdays'] == 0) {
+			$totalMatch = (int)$totalMatch / (int)21;
+	}
+		else{
+			$totalMatch = (int)$totalMatch / (int)16;
+		}
+
  
 
 	$smt=$con->prepare("SELECT * FROM jobmatch WHERE jobid= ? AND profileid=?");
