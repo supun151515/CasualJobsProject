@@ -1,5 +1,8 @@
 <style>
 .widget li.list-group-item:hover { background-color: rgba(86,61,124,.1); }
+.mic-info{
+    font-size: 10px;
+}
 </style>  
 <div class="panel panel-default widget">
             <div class="panel-heading">

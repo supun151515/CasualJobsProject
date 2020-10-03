@@ -59,15 +59,54 @@ $(document).on("click", ".cv", function(e){
 
 $(document).on("click", ".checkClick", function(e){
 e.stopPropagation();
+ var thisid = this.id;
+ $(".comment").show();
+if(thisid == 'c5'){
     if($(this).hasClass('checked')){
-        ratingCount -= 1;
-        $(this).removeClass('checked');
-    }else {
-        ratingCount += 1;
-        $(this).addClass('checked');
-        $(".comment").show();
-        $("#comment").focus();
+        $(".checkClick").removeClass('checked');
+        ratingCount = 0;
+    }else{
+        $(".checkClick").addClass('checked');
+        ratingCount = 5;
+         $(".commentText").focus();
     }
+}else if(thisid == 'c4'){
+    if($(this).hasClass('checked')){
+        $(".checkClick").removeClass('checked');
+        ratingCount = 0;
+    }else{
+        $("#c1, #c2, #c3, #c4").addClass('checked');
+        ratingCount = 4;
+        $(".commentText").focus();
+    }
+}else if(thisid == 'c3'){
+    if($(this).hasClass('checked')){
+        $(".checkClick").removeClass('checked');
+        ratingCount = 0;
+    }else{
+        $("#c1, #c2, #c3").addClass('checked');
+        ratingCount = 3;
+        $(".commentText").focus();
+    }
+}else if(thisid == 'c2'){
+    if($(this).hasClass('checked')){
+        $(".checkClick").removeClass('checked');
+        ratingCount = 0;
+    }else{
+        $("#c1, #c2").addClass('checked');
+        ratingCount = 2;
+        $(".commentText").focus();
+    }
+}else if(thisid == 'c1'){
+    if($(this).hasClass('checked')){
+        $(".checkClick").removeClass('checked');
+        ratingCount = 0;
+    }else{
+        $("#c1").addClass('checked');
+        ratingCount = 1;
+        $(".commentText").focus();
+    }
+}
 });
 $(document).on("click", ".comment, .commenttd", function(e){
     e.stopPropagation();
@@ -369,7 +408,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:profileID}, suc
     	htmldetails +='<tr><th>Ethnicity</th><td>'+v.jethnicity+'</td><td>'+v.pethnicity+'</td><td class="text-right">'+v.ethnicity+'%</td></tr>';
     	htmldetails +='<tr><th>Age</th><td>'+v.jage1+' - '+v.jage2+'</td><td>'+v.page+'</td><td class="text-right">'+v.age+'%</td></tr>';
     	htmldetails +='<tr><th>Gender</th><td>'+v.jgender+'</td><td>'+v.pgender+'</td><td class="text-right">'+v.gender+'%</td></tr>';
-    	htmldetails +='<tr><b><th colspan="2">Overall Job Matching percentage</th><td><button type="button" id="'+v.id+'" class="btn btn-primary btn-xs cv">Download Job Details</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></b></tr><tr><td colspan="4" class="commenttd">Rate this employer <small><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span></small> <input type="text" class="comment commentText" id="comment" placeHolder="Add comment" /><input type="button" class="comment commentSend" id="comment'+v.userId+'" value="Post" /></td></tr>';
+    	htmldetails +='<tr><b><th colspan="2">Overall Job Matching percentage</th><td><button type="button" id="'+v.id+'" class="btn btn-primary btn-xs cv">Download Job Details</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></b></tr><tr><td colspan="4" class="commenttd">Rate this employer <small><span class="fa fa-star fa-lg checkClick" id="c1"></span><span class="fa fa-star fa-lg checkClick" id="c2"></span><span class="fa fa-star fa-lg checkClick" id="c3"></span><span class="fa fa-star fa-lg checkClick" id="c4"></span><span class="fa fa-star fa-lg checkClick" id="c5"></span></small> <input type="text" class="comment commentText" id="comment" placeHolder="Add comment" /><input type="button" class="comment commentSend" id="comment'+v.userId+'" value="Post" /></td></tr>';
     	htmldetails +='</tbody></table></td></tr>';
     	html += htmldetails;
 
