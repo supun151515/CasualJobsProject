@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 28, 2020 at 05:35 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.7
+-- Host: localhost:3306
+-- Generation Time: Oct 03, 2020 at 02:07 PM
+-- Server version: 5.7.31-log
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `casualjobs`
+-- Database: `sinergyl_casualjobs`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `job` (
   `id` int(11) NOT NULL,
-  `dateAdd` datetime NOT NULL DEFAULT current_timestamp(),
+  `dateAdd` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userid` int(11) NOT NULL,
   `jobTitleid` int(11) NOT NULL,
   `jobType` int(11) NOT NULL,
@@ -44,7 +45,7 @@ CREATE TABLE `job` (
   `fromTime` time NOT NULL,
   `toTime` time NOT NULL,
   `totalHours` time NOT NULL,
-  `timeDiff` int(1) NOT NULL DEFAULT 0,
+  `timeDiff` int(1) NOT NULL DEFAULT '0',
   `qualification` int(11) NOT NULL,
   `experience` int(11) NOT NULL,
   `skills` varchar(300) NOT NULL,
@@ -55,8 +56,8 @@ CREATE TABLE `job` (
   `age1` int(10) NOT NULL,
   `age2` int(10) NOT NULL,
   `gender` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -64,8 +65,13 @@ CREATE TABLE `job` (
 --
 
 INSERT INTO `job` (`id`, `dateAdd`, `userid`, `jobTitleid`, `jobType`, `location`, `locationSub`, `payRate`, `jobDes`, `startDate`, `startType`, `endDate`, `endType`, `fromTime`, `toTime`, `totalHours`, `timeDiff`, `qualification`, `experience`, `skills`, `visaType`, `license`, `vehicle`, `ethnicity`, `age1`, `age2`, `gender`, `status`, `timeStamp`) VALUES
-(28, '2020-09-28 00:00:00', 11, 3, 2, 15, 68, '18.90', 'Help making food.\r\nWash and clean the kitchen.', '2020-09-30', 0, '2020-09-27', 1, '00:00:00', '00:00:00', '23:00:00', 1, 0, 0, 'Cooking,Multitasking,Hardworking', 0, 0, 0, 0, 18, 55, 0, 0, '2020-09-27 21:53:30'),
-(29, '2020-09-28 00:00:00', 11, 3, 1, 15, 68, '18.90', '', '2020-09-28', 0, '2020-09-28', 0, '04:00:00', '06:00:00', '02:00:00', 0, 0, 0, '', 0, 0, 0, 0, 18, 55, 0, 1, '2020-09-27 21:54:20');
+(28, '2020-09-28 00:00:00', 11, 3, 2, 15, 68, 18.90, 'Help making food.\r\nWash and clean the kitchen.', '2020-09-30', 0, '2020-09-27', 1, '00:00:00', '00:00:00', '23:00:00', 1, 0, 0, 'Cooking,Multitasking,Hardworking', 0, 0, 0, 0, 18, 55, 0, 1, '2020-09-27 11:04:25'),
+(29, '2020-09-28 00:00:00', 11, 5, 1, 1, 3, 18.90, '', '2020-09-28', 0, '2020-09-28', 0, '04:00:00', '14:00:00', '10:00:00', 0, 0, 0, 'Professionalism', 0, 0, 0, 0, 18, 55, 0, 1, '2020-09-27 11:42:06'),
+(30, '2020-09-28 00:00:00', 17, 19, 2, 15, 71, 18.90, 'We are searching for a motivated team member who has a passion for customer service, sales and styling. Previous experience in a retail environment is necessary.\r\n\r\nYou will work casual shifts which will change week to week with a usual minimum of hour hours a week. You must be available on weekends and be flexible with working weekdays.', '2020-09-28', 1, '2020-09-28', 1, '08:00:00', '18:00:00', '10:00:00', 0, 0, 2, 'Time Management,Multitasking', 0, 0, 0, 0, 18, 55, 2, 1, '2020-09-27 21:19:28'),
+(31, '2020-09-28 00:00:00', 17, 23, 1, 15, 74, 18.90, 'This is a great role for someone looking for work prior to Christmas with the potential for odd shifts throughout the year. It is essential you have an interest in food and are based in Auckland.\r\n\r\nYour key responsibilities and tasks would include:\r\n\r\nProviding customers with an enjoyable and informative shopping experience\r\nOperating the point of sale system\r\nEnsuring products are well stocked and nicely displayed and the showroom is clean and tidy at all times\r\nWrapping gifts', '2020-09-28', 0, '2020-09-28', 1, '00:00:00', '00:00:00', '36:00:00', 1, 0, 0, '', 0, 0, 0, 0, 18, 55, 0, 1, '2020-09-27 21:22:18'),
+(32, '2020-09-28 00:00:00', 17, 10, 1, 15, 68, 18.90, '', '2020-09-28', 0, '2020-09-28', 0, '06:00:00', '10:00:00', '04:00:00', 0, 0, 0, 'Time Management', 0, 0, 0, 0, 18, 55, 0, 1, '2020-09-28 00:46:49'),
+(33, '2020-09-28 00:00:00', 17, 13, 2, 1, 5, 22.00, 'nothing more', '2020-10-09', 0, '2020-12-31', 0, '10:00:00', '17:00:00', '07:00:00', 0, 2, 1, 'Multitasking,Cooking', 0, 0, 0, 0, 25, 55, 0, 1, '2020-09-28 09:04:15'),
+(34, '2020-09-30 00:00:00', 11, 11, 1, 15, 71, 21.50, 'This employer is looking for reliable individuals that are interested in working in Civil Construction industry as Traffic Controllers for our busy Clients who are only getting busier! With summer season just around the corner and already too many vacant roles in this growing industry to fill, we need people who are looking for a new', '2020-09-30', 0, '2020-12-31', 0, '00:00:00', '00:00:00', '41:00:00', 1, 3, 3, 'Stress Management,Flexibility,Communication,Time Management', 0, 1, 1, 0, 25, 55, 1, 1, '2020-09-29 21:47:55');
 
 -- --------------------------------------------------------
 
@@ -104,9 +110,9 @@ CREATE TABLE `jobmatch` (
   `age` int(11) NOT NULL,
   `gender` int(11) NOT NULL,
   `totalMatch` int(11) NOT NULL,
-  `short` int(11) NOT NULL DEFAULT 0,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `short` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -114,9 +120,22 @@ CREATE TABLE `jobmatch` (
 --
 
 INSERT INTO `jobmatch` (`id`, `empid`, `seekerid`, `jobid`, `profileid`, `jobType`, `locationSub`, `payRate`, `startDate`, `endDate`, `t1`, `t2`, `noWeek`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, `sun`, `qualification`, `experience`, `skills`, `visa`, `license`, `vehicle`, `ethnicity`, `age`, `gender`, `totalMatch`, `short`, `status`, `timeStamp`) VALUES
-(40, 11, 12, 28, 32, 100, 0, 100, 75, 100, 0, 0, 0, 50, 100, 100, 50, 100, 50, 100, 100, 100, 66, 100, 100, 100, 100, 100, 100, 86, 0, 0, '2020-09-27 21:53:30'),
-(41, 11, 12, 28, 33, 100, 100, 100, 75, 100, 0, 0, 0, 50, 50, 100, 50, 100, 50, 100, 100, 100, 33, 100, 100, 100, 100, 100, 100, 90, 0, 0, '2020-09-27 21:51:04'),
-(42, 11, 12, 29, 32, 100, 0, 100, 100, 100, 25, 25, 1, 0, 0, 0, 0, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 100, 100, 78, 0, 1, '2020-09-27 21:54:22');
+(40, 11, 12, 28, 32, 100, 0, 100, 75, 100, 0, 0, 0, 50, 100, 100, 50, 100, 50, 100, 100, 100, 66, 100, 100, 100, 100, 100, 100, 86, 0, 1, '2020-09-30 03:33:51'),
+(41, 11, 12, 28, 33, 100, 100, 100, 75, 100, 0, 0, 0, 0, 0, 100, 0, 100, 0, 100, 100, 100, 33, 100, 100, 100, 100, 100, 100, 85, 0, 1, '2020-09-30 03:34:00'),
+(42, 17, 12, 30, 32, 100, 0, 100, 100, 100, 25, 25, 1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 50, 100, 100, 100, 100, 100, 0, 69, 0, 1, '2020-10-01 06:04:54'),
+(43, 17, 12, 30, 33, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 50, 100, 100, 100, 100, 100, 0, 55, 0, 1, '2020-10-01 06:04:54'),
+(44, 17, 12, 31, 32, 100, 0, 100, 100, 100, 0, 0, 0, 50, 50, 50, 50, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 81, 0, 1, '2020-10-01 06:04:54'),
+(45, 17, 12, 31, 33, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 100, 100, 67, 0, 1, '2020-10-01 06:04:54'),
+(46, 17, 18, 30, 34, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 50, 50, 50, 50, 50, 100, 0, 0, 100, 100, 100, 100, 100, 0, 80, 1, 0, '2020-09-28 00:52:56'),
+(47, 17, 18, 31, 34, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 0, 100, 50, 50, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100, 87, 0, 0, '2020-09-28 00:52:56'),
+(48, 11, 18, 28, 34, 100, 100, 100, 75, 100, 0, 0, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 0, 100, 100, 100, 100, 100, 100, 90, 0, 0, '2020-09-28 00:52:56'),
+(49, 17, 12, 32, 32, 100, 0, 100, 100, 100, 25, 25, 1, 0, 0, 0, 0, 0, 0, 0, 100, 100, 0, 100, 100, 100, 100, 100, 100, 78, 0, 1, '2020-10-01 06:04:54'),
+(50, 17, 12, 32, 33, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 100, 0, 100, 100, 100, 100, 100, 100, 62, 0, 1, '2020-10-01 06:04:54'),
+(51, 17, 18, 32, 34, 100, 100, 100, 100, 100, 0, 0, 0, 0, 0, 50, 50, 100, 100, 100, 100, 100, 0, 100, 100, 100, 100, 100, 100, 89, 0, 0, '2020-09-28 00:52:56'),
+(52, 11, 12, 34, 32, 100, 0, 100, 75, 100, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 100, 0, 0, 100, 0, 100, 78, 1, 1, '2020-10-03 07:50:09'),
+(53, 11, 12, 34, 33, 100, 100, 100, 75, 100, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 100, 0, 0, 100, 0, 100, 84, 0, 1, '2020-09-30 01:04:25'),
+(54, 11, 18, 29, 37, 100, 100, 0, 75, 100, 25, 25, 1, 0, 0, 0, 0, 0, 0, 0, 100, 100, 0, 100, 100, 100, 100, 100, 100, 74, 0, 0, '2020-09-30 01:03:37'),
+(55, 11, 18, 29, 38, 100, 100, 100, 75, 75, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 100, 100, 0, 100, 100, 100, 100, 100, 100, 73, 0, 1, '2020-09-30 01:04:25');
 
 -- --------------------------------------------------------
 
@@ -127,8 +146,8 @@ INSERT INTO `jobmatch` (`id`, `empid`, `seekerid`, `jobid`, `profileid`, `jobTyp
 CREATE TABLE `jobtitle` (
   `id` int(11) NOT NULL,
   `jobTitle` varchar(200) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(1) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -169,8 +188,8 @@ INSERT INTO `jobtitle` (`id`, `jobTitle`, `status`, `timeStamp`) VALUES
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL,
   `location` varchar(200) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -206,8 +225,8 @@ CREATE TABLE `locations_sub` (
   `id` int(11) NOT NULL,
   `subid` int(11) NOT NULL,
   `location` varchar(200) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(1) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -304,8 +323,8 @@ CREATE TABLE `loglogin` (
   `os` varchar(100) NOT NULL,
   `userAgent` varchar(200) NOT NULL,
   `logType` varchar(50) NOT NULL,
-  `sync` int(1) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `sync` int(1) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -443,11 +462,67 @@ INSERT INTO `loglogin` (`id`, `username`, `ipAddress`, `browser`, `os`, `userAge
 (128, 'emp5', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 06:58:59'),
 (129, 'Woolworths Supermarket', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 09:12:01'),
 (130, 'Willard Carroll Smith', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 11:04:56'),
-(131, 'Woolworths Supermarket', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:23:39'),
-(132, 'Woolworths Supermarket', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:36:06'),
-(133, 'Willard Carroll Smith', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:41:51'),
-(134, 'Woolworths Supermarket', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:51:39'),
-(135, 'John Cena', '::1', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 22:00:44');
+(131, 'Woolworths Supermarket', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 11:21:17'),
+(132, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 11:40:41'),
+(133, 'Willard Carroll Smith', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 11:41:39'),
+(134, 'Willard Carroll Smith', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 20:37:16'),
+(135, 'Priyanka Chopra', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:17:23'),
+(136, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-27 21:27:55'),
+(137, 'Priyanka Chopra', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:33:35'),
+(138, 'John Cena', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 21:57:49'),
+(139, 'Priyanka Chopra', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 22:05:09'),
+(140, 'Ruban Sebastian', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-27 22:30:29'),
+(141, 'Ruban Sebastian', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-27 22:34:40'),
+(142, 'Woolworths Supermarket', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 23:37:10'),
+(143, 'Willard Carroll Smith', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-27 23:42:30'),
+(144, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 00:07:07'),
+(145, 'Priyanka Chopra', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 00:34:21'),
+(146, 'John Cena', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 00:47:09'),
+(147, 'John Cena', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 01:12:15'),
+(148, 'John Cena', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-28 01:17:33'),
+(149, 'Priyanka Chopra', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 01:28:43'),
+(150, 'John Cena', '198.41.238.50', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-09-28 02:17:17'),
+(151, 'Willard Carroll Smith', '198.41.238.50', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-09-28 02:24:38'),
+(152, 'Priyanka Chopra', '198.41.238.50', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-09-28 02:28:13'),
+(153, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 03:05:07'),
+(154, 'Willard Carroll Smith', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 03:07:02'),
+(155, 'Woolworths Supermarket', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 03:44:42'),
+(156, 'Priyanka Chopra', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 03:58:25'),
+(157, 'John Cena', '198.41.238.126', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-09-28 04:14:09'),
+(158, 'Priyanka Chopra', '198.41.238.92', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-09-28 09:01:27'),
+(159, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 12:47:29'),
+(160, 'Priyanka Chopra', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 12:47:47'),
+(161, 'John Cena', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 12:49:25'),
+(162, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 12:53:36'),
+(163, 'Priyanka Chopra', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 12:55:16'),
+(164, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-28 13:24:46'),
+(165, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-28 20:50:44'),
+(166, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-28 21:16:23'),
+(167, 'Woolworths Supermarket', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-29 21:32:47'),
+(168, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-29 23:06:34'),
+(169, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-29 23:06:34'),
+(170, 'Woolworths Supermarket', '141.101.69.121', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-29 23:20:23'),
+(171, 'Woolworths Supermarket', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-29 23:28:16'),
+(172, 'Woolworths Supermarket', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-29 23:37:31'),
+(173, 'John Cena', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-29 23:52:41'),
+(174, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-29 23:57:47'),
+(175, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-30 00:14:01'),
+(176, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36', 'login', 1, '2020-09-30 00:17:50'),
+(177, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-30 00:34:26'),
+(178, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-30 03:20:02'),
+(179, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-30 03:32:17'),
+(180, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-09-30 06:22:43'),
+(181, 'Priyanka Chopra', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-01 05:48:57'),
+(182, 'Priyanka Chopra', '198.41.238.106', 'Handheld Browser', 'iPhone', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1', 'login', 1, '2020-10-01 06:43:06'),
+(183, 'Woolworths Supermarket', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-03 02:51:09'),
+(184, 'Woolworths Supermarket', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-03 04:01:39'),
+(185, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-03 07:35:18'),
+(186, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-03 07:36:13'),
+(187, 'Woolworths Supermarket', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 Edg/85.0.564.63', 'login', 1, '2020-10-03 07:41:17'),
+(188, 'Willard Carroll Smith', '198.41.238.126', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36', 'login', 1, '2020-10-03 07:42:27'),
+(189, 'Willard Carroll Smith', '198.41.238.50', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 Edg/85.0.564.63', 'login', 1, '2020-10-03 07:44:54'),
+(190, 'Woolworths Supermarket', '198.41.238.92', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 Edg/85.0.564.63', 'login', 1, '2020-10-03 07:50:14'),
+(191, 'Willard Carroll Smith', '198.41.238.106', 'Chrome', 'Windows 10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 Edg/85.0.564.63', 'login', 1, '2020-10-03 08:29:11');
 
 -- --------------------------------------------------------
 
@@ -459,10 +534,10 @@ CREATE TABLE `profile` (
   `id` int(11) NOT NULL,
   `dateAdd` datetime NOT NULL,
   `userid` int(11) NOT NULL,
-  `multiJobTitle` int(11) NOT NULL DEFAULT 0,
+  `multiJobTitle` int(11) NOT NULL DEFAULT '0',
   `jobType` int(11) NOT NULL,
   `location` int(11) NOT NULL,
-  `multiLocation` int(11) NOT NULL DEFAULT 0,
+  `multiLocation` int(11) NOT NULL DEFAULT '0',
   `payRate` decimal(10,2) NOT NULL,
   `startDate` date NOT NULL,
   `startType` int(11) NOT NULL,
@@ -471,7 +546,7 @@ CREATE TABLE `profile` (
   `fromTime` time NOT NULL,
   `toTime` time NOT NULL,
   `totalHours` time NOT NULL,
-  `timeDiff` int(11) NOT NULL DEFAULT 0,
+  `timeDiff` int(11) NOT NULL DEFAULT '0',
   `qualification` int(11) NOT NULL,
   `experience` int(11) NOT NULL,
   `skills` varchar(300) NOT NULL,
@@ -481,8 +556,8 @@ CREATE TABLE `profile` (
   `ethnicity` int(11) NOT NULL,
   `age` varchar(10) NOT NULL,
   `gender` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -490,8 +565,13 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `dateAdd`, `userid`, `multiJobTitle`, `jobType`, `location`, `multiLocation`, `payRate`, `startDate`, `startType`, `endDate`, `endType`, `fromTime`, `toTime`, `totalHours`, `timeDiff`, `qualification`, `experience`, `skills`, `visaType`, `license`, `vehicle`, `ethnicity`, `age`, `gender`, `status`, `timeStamp`) VALUES
-(32, '2020-09-28 00:00:00', 12, 0, 0, 15, 1, '18.90', '2020-09-28', 0, '2020-09-28', 1, '09:00:00', '21:00:00', '12:00:00', 0, 0, 0, 'Hardworking,Multitasking', 0, 0, 0, 0, '18', 1, 1, '2020-09-27 11:05:42'),
-(33, '2020-09-28 00:00:00', 12, 0, 0, 15, 0, '18.90', '2020-09-28', 0, '2020-09-28', 1, '00:00:00', '00:00:00', '31:00:00', 1, 0, 0, 'Attentiveness,MS Office,Multitasking', 0, 0, 0, 0, '18', 1, 0, '2020-09-27 21:51:04');
+(32, '2020-09-28 00:00:00', 12, 0, 0, 15, 1, 18.90, '2020-09-28', 0, '2020-09-28', 1, '09:00:00', '21:00:00', '12:00:00', 0, 0, 0, 'Hardworking,Multitasking', 0, 0, 0, 0, '18', 1, 1, '2020-09-27 11:05:42'),
+(33, '2020-09-28 00:00:00', 12, 0, 0, 15, 0, 18.90, '2020-09-28', 0, '2020-09-28', 1, '00:00:00', '00:00:00', '31:00:00', 1, 0, 0, 'Attentiveness,MS Office,Multitasking', 0, 0, 0, 0, '18', 1, 1, '2020-09-27 11:08:12'),
+(34, '2020-09-28 00:00:00', 18, 0, 0, 15, 0, 18.90, '2020-09-28', 0, '2020-09-28', 0, '00:00:00', '00:00:00', '46:00:00', 1, 0, 0, '', 0, 0, 0, 0, '18', 1, 0, '2020-09-28 00:52:56'),
+(35, '2020-09-28 00:00:00', 18, 1, 1, 15, 1, 18.90, '2020-10-01', 0, '2020-09-28', 1, '04:00:00', '17:00:00', '13:00:00', 0, 0, 0, 'Time Management,Attentiveness', 0, 0, 0, 0, '18', 1, 1, '2020-09-28 02:19:44'),
+(36, '2020-09-28 00:00:00', 18, 1, 1, 15, 1, 18.90, '2020-09-28', 0, '2020-09-28', 1, '02:00:00', '00:00:00', '22:00:00', 0, 0, 0, '', 0, 0, 0, 0, '18', 1, 1, '2020-09-28 04:16:31'),
+(37, '2020-09-30 00:00:00', 18, 1, 1, 1, 0, 25.00, '2020-09-30', 0, '2020-09-30', 1, '06:00:00', '14:00:00', '00:00:00', 0, 1, 3, '', 0, 0, 0, 0, '18', 1, 0, '2020-09-30 01:03:37'),
+(38, '2020-09-30 00:00:00', 18, 1, 0, 1, 0, 18.90, '2020-09-30', 0, '2020-09-30', 0, '06:00:00', '13:00:00', '00:00:00', 0, 0, 0, '', 0, 0, 0, 0, '18', 1, 1, '2020-09-30 01:04:16');
 
 -- --------------------------------------------------------
 
@@ -504,6 +584,16 @@ CREATE TABLE `profilemultijobtitles` (
   `profileid` int(11) NOT NULL,
   `jobTitleid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `profilemultijobtitles`
+--
+
+INSERT INTO `profilemultijobtitles` (`id`, `profileid`, `jobTitleid`) VALUES
+(27, 35, 1),
+(28, 36, 1),
+(29, 37, 5),
+(30, 38, 5);
 
 -- --------------------------------------------------------
 
@@ -522,7 +612,70 @@ CREATE TABLE `profilemultilocationsub` (
 --
 
 INSERT INTO `profilemultilocationsub` (`id`, `profileid`, `locationSubid`) VALUES
-(19, 32, 70);
+(19, 32, 70),
+(20, 35, 2),
+(21, 35, 68),
+(22, 35, 70),
+(23, 36, 1),
+(24, 36, 2),
+(25, 36, 68);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ratingemp`
+--
+
+CREATE TABLE `ratingemp` (
+  `id` int(11) NOT NULL,
+  `empid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `comment` varchar(200) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ratingemp`
+--
+
+INSERT INTO `ratingemp` (`id`, `empid`, `userid`, `comment`, `rating`, `status`, `timeStamp`) VALUES
+(1, 11, 12, 'nothing', 4, 1, '2020-10-03 04:21:54'),
+(2, 11, 12, 'nothing2', 5, 1, '2020-10-03 04:12:38'),
+(3, 11, 12, 'erer', 2, 1, '2020-10-03 06:24:49'),
+(4, 11, 12, 'Happy to join in the team', 1, 1, '2020-10-03 07:49:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ratingseeker`
+--
+
+CREATE TABLE `ratingseeker` (
+  `id` int(11) NOT NULL,
+  `seekerid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `comment` varchar(200) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ratingseeker`
+--
+
+INSERT INTO `ratingseeker` (`id`, `seekerid`, `userid`, `comment`, `rating`, `status`, `timeStamp`) VALUES
+(1, 12, 11, 'no comment', 3, 1, '2020-10-03 04:37:03'),
+(2, 12, 11, 'nonoe', 4, 1, '2020-10-03 04:37:54'),
+(5, 12, 11, '', 1, 1, '2020-10-03 05:55:50'),
+(6, 12, 11, 'sdsdsa', 1, 1, '2020-10-03 05:57:22'),
+(7, 12, 11, 'wewqewew', 1, 1, '2020-10-03 05:58:11'),
+(8, 12, 11, '', 1, 1, '2020-10-03 05:59:41'),
+(9, 12, 11, 'sadsdsa', 3, 1, '2020-10-03 06:00:38'),
+(10, 12, 11, 'fggfdgfd', 1, 1, '2020-10-03 07:35:38'),
+(11, 12, 12, 'Happy to work in the team', 1, 1, '2020-10-03 08:32:38');
 
 -- --------------------------------------------------------
 
@@ -543,8 +696,8 @@ CREATE TABLE `register` (
   `postcode` varchar(100) NOT NULL,
   `telephone` varchar(20) NOT NULL,
   `image` varchar(500) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(1) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -553,8 +706,11 @@ CREATE TABLE `register` (
 
 INSERT INTO `register` (`id`, `user_type`, `email`, `password`, `userName`, `address1`, `address2`, `suburb`, `city`, `postcode`, `telephone`, `image`, `status`, `timeStamp`) VALUES
 (11, 1, 'emp', 'ac8be4aee61f5f6e21b8c5afffb52939', 'Woolworths Supermarket', '15/134 Dixon Street', '', 'Te Aro', 'Wellington', '6011', '0284228131', '1', 1, '2020-09-26 07:15:51'),
-(12, 2, 'seeker', 'cb9f81491427f30112d8cd0ec97e97fc', 'Willard Carroll Smith', '21 Kensington Avenue', '', 'Petone', 'Lower Hutt', '5012', '02325252525', '1', 1, '2020-09-26 07:15:53'),
-(17, 2, 'seeker2', 'cd607140f889954c095cb9d6a0041331', 'John Cena', '2A Aurora Street', 'Petone', 'Lower Hutt', 'Lower Hutt', '5012', '0284228131', '1', 1, '2020-09-27 22:00:32');
+(12, 2, 'seeker', 'cb9f81491427f30112d8cd0ec97e97fc', 'Willard Carroll Smith', '21 Kensington Avenue', 'No address 2', 'Petone', 'Lower Hutt', '5012', '02325252525', '1', 1, '2020-09-27 20:44:53'),
+(17, 1, 'emp2', '41ab3465e911f91509d3fae308f41f76', 'Priyanka Chopra', '244 Victoria Street', '', 'Te Aro', 'Wellington', '6011', '1234567890', '1', 1, '2020-09-27 21:16:53'),
+(18, 2, 'seeker2', 'cd607140f889954c095cb9d6a0041331', 'John Cena', '15 Dixon Street,', '', 'Te Aro', 'Wellington', '6011', '342423432', '1', 1, '2020-09-27 21:57:36'),
+(19, 1, 'rubansabestian@gmail.com', '16d9c7d63c7c1c7b6839d3f17bcc7bd6', 'Ruban Sebastian', '35 pikarere street', 'Titahi bay', 'Porirua', 'Wellington', '5022', '0224977311', '0', 1, '2020-09-27 22:30:20'),
+(20, 2, 'ruban.sebastian@student.weltec.ac.nz', '16d9c7d63c7c1c7b6839d3f17bcc7bd6', 'Ruban Sebastian', '35 pikarere street', 'Titahi bay', 'Porirua', 'Wellington', '5022', '0224977311', '0', 1, '2020-09-27 22:34:34');
 
 -- --------------------------------------------------------
 
@@ -566,8 +722,8 @@ CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
   `jobid` int(11) NOT NULL,
   `skill` varchar(50) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -680,8 +836,8 @@ CREATE TABLE `timediffjobs` (
   `sat2` time NOT NULL,
   `sun1` time NOT NULL,
   `sun2` time NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -689,7 +845,9 @@ CREATE TABLE `timediffjobs` (
 --
 
 INSERT INTO `timediffjobs` (`id`, `jobid`, `mon1`, `mon2`, `tue1`, `tue2`, `wed1`, `wed2`, `thu1`, `thu2`, `fri1`, `fri2`, `sat1`, `sat2`, `sun1`, `sun2`, `status`, `timeStamp`) VALUES
-(14, 28, '14:00:00', '23:00:00', '11:00:00', '10:00:00', '00:00:00', '00:00:00', '00:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '06:00:00', '00:00:00', '00:00:00', 1, '2020-09-27 11:04:25');
+(14, 28, '14:00:00', '23:00:00', '11:00:00', '10:00:00', '00:00:00', '00:00:00', '00:00:00', '09:00:00', '00:00:00', '00:00:00', '00:00:00', '06:00:00', '00:00:00', '00:00:00', 1, '2020-09-27 11:04:25'),
+(16, 31, '08:00:00', '10:00:00', '00:00:00', '06:00:00', '00:00:00', '11:00:00', '05:00:00', '09:00:00', '07:00:00', '11:00:00', '09:00:00', '14:00:00', '12:00:00', '16:00:00', 1, '2020-09-27 21:22:18'),
+(17, 34, '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', '10:47:00', 1, '2020-09-29 21:47:55');
 
 -- --------------------------------------------------------
 
@@ -714,8 +872,8 @@ CREATE TABLE `timediffprofiles` (
   `sat2` time NOT NULL,
   `sun1` time NOT NULL,
   `sun2` time NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `timeStamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `status` int(11) NOT NULL DEFAULT '1',
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -723,7 +881,8 @@ CREATE TABLE `timediffprofiles` (
 --
 
 INSERT INTO `timediffprofiles` (`id`, `profileid`, `mon1`, `mon2`, `tue1`, `tue2`, `wed1`, `wed2`, `thu1`, `thu2`, `fri1`, `fri2`, `sat1`, `sat2`, `sun1`, `sun2`, `status`, `timeStamp`) VALUES
-(14, 33, '08:00:00', '11:00:00', '06:00:00', '09:00:00', '14:00:00', '12:00:00', '05:00:00', '10:00:00', '07:00:00', '18:00:00', '11:00:00', '22:00:00', '12:00:00', '12:00:00', 1, '2020-09-27 11:08:12');
+(14, 33, '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', '09:44:00', 1, '2020-09-27 20:44:04'),
+(15, 34, '05:00:00', '05:00:00', '00:00:00', '00:00:00', '04:00:00', '08:00:00', '00:00:00', '09:00:00', '00:00:00', '10:00:00', '00:00:00', '11:00:00', '00:00:00', '12:00:00', 1, '2020-09-27 21:58:28');
 
 --
 -- Indexes for dumped tables
@@ -797,6 +956,22 @@ ALTER TABLE `profilemultilocationsub`
   ADD KEY `profilesublocationid` (`locationSubid`);
 
 --
+-- Indexes for table `ratingemp`
+--
+ALTER TABLE `ratingemp`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `empratingid` (`empid`),
+  ADD KEY `empratinguserid` (`userid`);
+
+--
+-- Indexes for table `ratingseeker`
+--
+ALTER TABLE `ratingseeker`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ratingseekerid` (`seekerid`),
+  ADD KEY `ratingseekeruserid` (`userid`);
+
+--
 -- Indexes for table `register`
 --
 ALTER TABLE `register`
@@ -831,13 +1006,13 @@ ALTER TABLE `timediffprofiles`
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `jobmatch`
 --
 ALTER TABLE `jobmatch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `jobtitle`
@@ -861,31 +1036,43 @@ ALTER TABLE `locations_sub`
 -- AUTO_INCREMENT for table `loglogin`
 --
 ALTER TABLE `loglogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `profilemultijobtitles`
 --
 ALTER TABLE `profilemultijobtitles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `profilemultilocationsub`
 --
 ALTER TABLE `profilemultilocationsub`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `ratingemp`
+--
+ALTER TABLE `ratingemp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ratingseeker`
+--
+ALTER TABLE `ratingseeker`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tags`
@@ -897,13 +1084,13 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `timediffjobs`
 --
 ALTER TABLE `timediffjobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `timediffprofiles`
 --
 ALTER TABLE `timediffprofiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -951,6 +1138,20 @@ ALTER TABLE `profilemultijobtitles`
 ALTER TABLE `profilemultilocationsub`
   ADD CONSTRAINT `profilemultiid` FOREIGN KEY (`profileid`) REFERENCES `profile` (`id`),
   ADD CONSTRAINT `profilesublocationid` FOREIGN KEY (`locationSubid`) REFERENCES `locations_sub` (`id`);
+
+--
+-- Constraints for table `ratingemp`
+--
+ALTER TABLE `ratingemp`
+  ADD CONSTRAINT `empratingid` FOREIGN KEY (`empid`) REFERENCES `register` (`id`),
+  ADD CONSTRAINT `empratinguserid` FOREIGN KEY (`userid`) REFERENCES `register` (`id`);
+
+--
+-- Constraints for table `ratingseeker`
+--
+ALTER TABLE `ratingseeker`
+  ADD CONSTRAINT `ratingseekerid` FOREIGN KEY (`seekerid`) REFERENCES `register` (`id`),
+  ADD CONSTRAINT `ratingseekeruserid` FOREIGN KEY (`userid`) REFERENCES `register` (`id`);
 
 --
 -- Constraints for table `tags`
