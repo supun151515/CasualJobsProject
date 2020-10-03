@@ -122,30 +122,13 @@ if($profile->ptimeDiff == 0) {
 }
 
 
-$mpdf = new \Mpdf\Mpdf();
+$mpdf = new \Mpdf\Mpdf(['setAutoTopMargin' => 'pad']);
 $mpdf->SetDisplayMode('fullpage');
 $mpdf->list_indent_first_level = 0;
 $stylesheet = file_get_contents('../../employer/report/index.css');
 $mpdf->WriteHTML($stylesheet,1);
 
-$html = '<table width="100%" align="left"><tbody>
-<tr>
-<td width="50%" class="userName">
-'.$rowregister->userName.'
-</td>
-<td align="right">
-<img class="profile" src="'.$imagePath.'" height="100" width="auto" />
-</td>
-</tr>
-<tr>
-<td colspan="2">
-We are looking for '.$profile->jobTitle.' job vacancy in '.$profile->location.' greater suburbs. We mostly prefer candidates living near '.$profile->sub_location.' and walking distance areas to fulfil this job vacancy. 
-</td>
-</tr>
-</tbody>
-</table>
-<br>
-
+$html = '
 <div class="f1">
 General Information
 </div>
@@ -428,10 +411,27 @@ Gender:
 </tr>
 </tbody>
 </table>
-<div class="print">
-Printed by: '.$_SESSION['userName'].' on '.$created_date.' at '.$created_time.'
-</div>
 ';
+$mpdf->SetHTMLHeader('<table width="100%" align="left"><tbody>
+<tr>
+<td width="50%" class="userName">
+'.$rowregister->userName.'
+</td>
+<td align="right">
+<img class="profile" src="'.$imagePath.'" height="100" width="auto" />
+</td>
+</tr>
+<tr>
+<td colspan="2">
+We are looking for '.$profile->jobTitle.' job vacancy in '.$profile->location.' greater suburbs. We mostly prefer candidates living near '.$profile->sub_location.' and walking distance areas to fulfil this job vacancy. 
+</td>
+</tr>
+</tbody>
+</table>');
+$mpdf->SetHTMLFooter('<div class="print">
+Printed by: '.$_SESSION['userName'].' on '.$created_date.' at '.$created_time.'
+</div>');
+
 $_SESSION['seekeridcv'] = '';
 $_SESSION['profileidcv'] = '';
 $_SESSION['created_time'] = '';

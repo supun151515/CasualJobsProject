@@ -15,3 +15,6 @@
     background: #ffebcd;
     overflow: auto;
 }
+.checked {
+  color: orange;
+}

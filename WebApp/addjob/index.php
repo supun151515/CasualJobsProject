@@ -331,27 +331,7 @@ $("#ongoing").change(function(){
 <br>
 <div class="container-fluid pb-5">
 	<div class="row">
-			<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
-			<div class="card bg-default">
-				<h5 class="card-header">
-					<?php echo $_SESSION['userName']; ?>
-				</h5>
-				<div class="card-body">
-					<p class="card-text">
-						<p><?php echo $_SESSION['address1'].' '. $_SESSION['address2'].', '. $_SESSION['suburb'].', '.$_SESSION['city'].', '.$_SESSION['postcode']; ?></p>
-						<p><?php echo $_SESSION['email']; ?></p>
-						<p><?php echo $_SESSION['telephone']; ?></p>
-					</p>
-				</div>
-				<div class="card-footer">
-					<a href="../editprofile">Edit Profile</a>
-				</div>
-				<div class="card-footer">
-					<a href="../php/logout.php">Logout</a>
-				</div>
-			</div>
-		</div> <!-- Profile end -->
+    <?php include('../employer/dashboard.php'); ?> 
 	
 	<div class="col-md-8">
 		<div class="container">

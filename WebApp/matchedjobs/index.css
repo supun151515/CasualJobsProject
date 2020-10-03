@@ -26,8 +26,11 @@
 .jobs {
   font-size: 12px;
 }
- .jobs tbody tr {
+ .jobs > tbody > tr {
     cursor: pointer;
+}
+#jobmatchbreak{
+  cursor: default;
 }
 .jobData {
   font-size: 10px;
@@ -58,4 +61,10 @@ a:hover{
 .btn-xs{
   font-size:10px;
   padding:4px;
+}
+.checkClick{
+  cursor: pointer;
+}
+.comment{
+  display: none;
 }

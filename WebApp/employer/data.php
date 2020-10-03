@@ -107,6 +107,13 @@ $smt=$con->prepare("SELECT empid, jobid, COUNT(*) as countdata FROM jobmatch WHE
 $smt->execute(array($empID));
 $row = $smt->fetchAll(PDO::FETCH_OBJ);
 $allData->match = $row;
+
+$smt=$con->prepare("SELECT rp.userid, rp.comment, rp.rating, rp.timeStamp as timeStamp, r.userName FROM ratingemp rp LEFT JOIN register r ON rp.userid=r.id WHERE rp.empid=? AND rp.status ='1' ORDER BY rp.timeStamp DESC LIMIT 5");
+$smt->execute(array($empID));
+$row = $smt->fetchAll(PDO::FETCH_OBJ);
+$allData->comment = $row;
+
+
 print json_encode($allData);
 }
 ?>

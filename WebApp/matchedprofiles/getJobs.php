@@ -65,7 +65,7 @@ $profileID = $_POST['jobID'];
 
 
 
-	$sql = "SELECT jm.id, jm.profileid as profileid, r.userName, j.dateAdd, jtitle.jobtitle as jobnames, lsubj.location location,  
+	$sql = "SELECT jm.id, jm.profileid as profileid, r.userName, r.id userId, j.dateAdd, jtitle.jobtitle as jobnames, lsubj.location location, count(*) as rscount, sum(rs.rating) as rating,  
 	CASE WHEN p.jobType=0 THEN 'Any' 
 	WHEN p.jobType=1 THEN 'Casual' 
 	WHEN p.jobType=2 THEN 'Part-time' 
@@ -157,7 +157,8 @@ $profileID = $_POST['jobID'];
 	LEFT JOIN locations_sub lsubj ON j.locationSub = lsubj.id 
 	LEFT JOIN timediffjobs jt ON jt.jobid=jm.jobid 
 	LEFT JOIN timediffprofiles pt ON pt.profileid=p.id  
-	WHERE jm.profileid=? AND jm.status=1 and (jm.short=1 || jm.short=2) ORDER BY jm.totalMatch DESC";
+	LEFT JOIN ratingemp rs ON r.id=rs.empid 
+	WHERE jm.profileid=? AND jm.status=1 and (jm.short=1 || jm.short=2) GROUP BY p.id ORDER BY jm.totalMatch DESC";
 	$smt = $con->prepare($sql);
 	$smt->execute(array($profileID));
 	$row = $smt->fetchAll(PDO::FETCH_OBJ);

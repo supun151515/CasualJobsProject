@@ -14,7 +14,7 @@ if($_SESSION['type'] != '1'){
 <title>Matched Jobs</title>
 <link href="index.css" rel="stylesheet" />
 <script>
-
+ratingCount = 0;
 $(document).ready(function () {
 
 var pathname = window.location.pathname;
@@ -70,6 +70,50 @@ $(document).on("click", ".cv", function(e){
         }
     }});
 });
+
+$(document).on("click", ".checkClick", function(e){
+e.stopPropagation();
+    if($(this).hasClass('checked')){
+        ratingCount -= 1;
+        $(this).removeClass('checked');
+    }else {
+        ratingCount += 1;
+        $(this).addClass('checked');
+        $(".comment").show();
+        $("#comment").focus();
+    }
+});
+$(document).on("click", ".comment, .commenttd", function(e){
+    e.stopPropagation();
+});
+
+$(document).on("click", ".commentSend", function(e){
+    e.stopPropagation();
+    var comment = $(".commentText").val();
+    var seekerid = this.id;
+    seekerid = seekerid.substring(7, seekerid.length);
+    if(ratingCount == 0){
+        alertify.alert("Error","Please rate this job seeker to post");
+        return false;
+    }
+    LockPage();
+     $.ajax({url:'comment.php', type:'POST', async:false, data:{comment:comment, seekerid:seekerid, rating:ratingCount}, success:function(data){
+            UnlockPage();
+        try{
+        if(data=='ok'){
+            alertify.alert("Success", "Comment and rating successfully posted");
+            $(".comment").hide();
+            return false;
+        }
+        }catch(err){
+        console.log(err.message);
+        return false;
+        }
+    }});
+
+});
+
+
 $(document).on("click", ".short", function(e){
     e.stopPropagation();
     var thishref = jQuery(this);
@@ -175,12 +219,60 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:jobID}, success
         var num = 1;
   
         $.each(matched, function(i,v){
+        var rating = parseInt(v.rating);
+        var ratingcount = parseInt(v.rscount);
+        var rating = rating / ratingcount;
+        rating = parseInt(rating);
+ 
+        var ratingClass1 ='';
+        var ratingClass2 ='';
+        var ratingClass3 ='';
+        var ratingClass4 ='';
+        var ratingClass5 ='';
+        if(rating == 0){
+            ratingClass1 ='';
+            ratingClass2 ='';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 1){
+            ratingClass1 ='checked';
+            ratingClass2 ='';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 2){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 3){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 4){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='checked';
+            ratingClass5 ='';
+        }else if(rating == 5){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='checked';
+            ratingClass5 ='checked';
+        }
 
-    	var html = '<tr id="'+v.id+'"><td style="display: none;" scope="col">'+v.id+'</td><td style="display: none;" scope="col">'+v.profileid+'</td><td scope="col" width="10px">'+num+'</td><td scope="col">'+moment(v.dateAdd).format('YYYY-MM-DD')+'</td><td scope="col" id="'+v.id+'">'+v.jobnames+'</td><td scope="col">'+v.location+'</td><td scope="col">'+v.userName+'</td><td scope="col">'+v.totalMatch+'%</td><td scope="col"><a href="#" class="short" id="short'+v.id+'" target="">Shortlist</a></td></tr>';
+
+    	var html = '<tr id="'+v.id+'"><td style="display: none;" scope="col">'+v.id+'</td><td style="display: none;" scope="col">'+v.profileid+'</td><td scope="col" width="10px">'+num+'</td><td scope="col">'+moment(v.dateAdd).format('YYYY-MM-DD')+'</td><td scope="col" id="'+v.id+'">'+v.jobnames+'</td><td scope="col">'+v.location+'</td><td scope="col">'+v.userName+' <small><span class="fa fa-star fa-xs '+ratingClass1+'"></span><span class="fa fa-star fa-xs '+ratingClass2+'"></span><span class="fa fa-star fa-xs '+ratingClass3+'"></span><span class="fa fa-star fa-xs '+ratingClass4+'"></span><span class="fa fa-star fa-xs '+ratingClass5+'"></span></small></td><td scope="col">'+v.totalMatch+'%</td><td scope="col"><a href="#" class="short" id="short'+v.id+'" target="">Shortlist</a></td></tr>';
 
 
         //details
-    	var htmldetails = '<tr id="jobDetails'+v.id+'" class="jobDetailsClass" style="display:none;" ><td colspan="7"><table id="" class="table table-fixed table-striped"><thead><tr><th scope="col">Compare</th><th scope="col">Employer</th><th scope="col">Seeker</th><th scope="col" class="text-right">Matched</th></tr></thead>';
+    	var htmldetails = '<tr id="jobDetails'+v.id+'" class="jobDetailsClass" style="display:none;" ><td colspan="7"><table id="jobmatchbreak" class="table table-fixed table-striped"><thead><tr><th scope="col">Compare</th><th scope="col">Employer</th><th scope="col">Seeker</th><th scope="col" class="text-right">Matched</th></tr></thead>';
     	
     	htmldetails+='<tbody><tr><th>Job Type</th><td>'+v.jjobTypeName+'</td><td>'+v.pjobTypeName+'</td><td class="text-right">'+v.jobType+'%</td></tr>'
 
@@ -278,7 +370,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:jobID}, success
     	htmldetails +='<tr><th>Ethnicity</th><td>'+v.jethnicity+'</td><td>'+v.pethnicity+'</td><td class="text-right">'+v.ethnicity+'%</td></tr>';
     	htmldetails +='<tr><th>Age</th><td>'+v.jage1+' - '+v.jage2+'</td><td>'+v.page+'</td><td class="text-right">'+v.age+'%</td></tr>';
     	htmldetails +='<tr><th>Gender</th><td>'+v.jgender+'</td><td>'+v.pgender+'</td><td class="text-right">'+v.gender+'%</td></tr>';
-    	htmldetails +='<tr><th colspan="2"><b>Overall Job Matching percentage</b></th><td><button type="button" id="cv'+v.id+'" class="btn btn-primary btn-xs cv">Download CV</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></tr>';
+    	htmldetails +='<tr><th colspan="2"><b>Overall Job Matching percentage</b></th><td><button type="button" id="cv'+v.id+'" class="btn btn-primary btn-xs cv">Download CV</button></td><td class="text-right"><b>'+v.totalMatch+'%</b></td></tr><tr><td colspan="4" class="commenttd">Rate this job seeker <small><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span><span class="fa fa-star fa-lg checkClick"></span></small> <input type="text" class="comment commentText" id="comment" placeHolder="Add comment" /><input type="button" class="comment commentSend" id="comment'+v.userId+'" value="Post" /></td></tr>';
     	htmldetails +='</tbody></table></td></tr>';
     	html += htmldetails;
 
@@ -316,25 +408,7 @@ $.ajax({url:'getJobs.php', type:'POST', async:false, data:{jobID:jobID}, success
 <br>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Employer" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="200" />
-			<div class="card bg-default">
-				<h5 class="card-header">
-					<?php echo $_SESSION['userName']; ?>
-				</h5>
-				<div class="card-body">
-					<div class="card-text table-responsive" id="jobData">
-
-					</div>
-				</div>
-				<div class="card-footer">
-					<a href="../editprofile">Edit Profile</a>
-				</div>
-				<div class="card-footer">
-					<a href="../php/logout.php">Logout</a>
-				</div>
-			</div>
-		</div>
+	<?php include('../employer/dashboard.php'); ?> 
 		<br>
 		<div class="col-md-8">
         

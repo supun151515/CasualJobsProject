@@ -16,6 +16,58 @@ if(isset($_POST['email']) && isset($_POST['password'] ))
 	$num_rows = $smt->rowCount();
 
 	if($num_rows  != 0) {
+		if($row->user_type == 1){
+		$smt2 = $con->prepare("SELECT count(*) as count, sum(rating) as rating FROM ratingemp WHERE empid=? AND status='1'");
+		$smt2->execute(array($row->id));
+		$row2 = $smt2->fetch(PDO::FETCH_OBJ);
+		}else{
+		$smt2 = $con->prepare("SELECT count(*) as count, sum(rating) as rating FROM ratingseeker WHERE seekerid=? AND status='1'");
+		$smt2->execute(array($row->id));
+		$row2 = $smt2->fetch(PDO::FETCH_OBJ);
+		}
+		
+		$ratingCount = $row2->count;
+		$ratingValue = $row2->rating;
+		$rating = (int)$ratingValue / (int)$ratingCount;
+		$rating = (int)$rating;
+		$_SESSION['rating'] = (int)$rating;
+		if($rating == 0){
+			$_SESSION['rating1'] = '';
+			$_SESSION['rating2'] = '';
+			$_SESSION['rating3'] = '';
+			$_SESSION['rating4'] = '';
+			$_SESSION['rating5'] = '';
+		}else if($rating == 1){
+			$_SESSION['rating1'] = 'checked';
+			$_SESSION['rating2'] = '';
+			$_SESSION['rating3'] = '';
+			$_SESSION['rating4'] = '';
+			$_SESSION['rating5'] = '';
+		}else if($rating == 2){
+			$_SESSION['rating1'] = 'checked';
+			$_SESSION['rating2'] = 'checked';
+			$_SESSION['rating3'] = '';
+			$_SESSION['rating4'] = '';
+			$_SESSION['rating5'] = '';
+		}else if($rating == 3){
+			$_SESSION['rating1'] = 'checked';
+			$_SESSION['rating2'] = 'checked';
+			$_SESSION['rating3'] = 'checked';
+			$_SESSION['rating4'] = '';
+			$_SESSION['rating5'] = '';
+		}else if($rating == 4){
+			$_SESSION['rating1'] = 'checked';
+			$_SESSION['rating2'] = 'checked';
+			$_SESSION['rating3'] = 'checked';
+			$_SESSION['rating4'] = 'checked';
+			$_SESSION['rating5'] = '';
+		}else if($rating == 5){
+			$_SESSION['rating1'] = 'checked';
+			$_SESSION['rating2'] = 'checked';
+			$_SESSION['rating3'] = 'checked';
+			$_SESSION['rating4'] = 'checked';
+			$_SESSION['rating5'] = 'checked';
+		}
 		$_SESSION['id'] = $row->id;
 		$_SESSION['email'] = $row->email;
 		$_SESSION['userName'] = $row->userName;

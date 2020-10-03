@@ -45,14 +45,64 @@ function loadData(){
     });
 
        $.each(parsedData.match, function(i,v){
- 
     	var getName = $("#"+v.profileid).html();
-
     	var newName = "<span class='badge badge-primary'>"+v.countdata+"</span> "+getName;
     	$("#"+v.profileid).html(newName);
+    	});
+
+         var commentCount = parsedData.comment.length;
+    $(".countComments").html(commentCount);
+    $.each(parsedData.comment, function(i,v){
+     var timeStamp = moment(v.timeStamp).format('YYYY-MM-DD HH:mm');
+     	rating = parseInt(v.rating);
+     	var ratingClass1 ='';
+        var ratingClass2 ='';
+        var ratingClass3 ='';
+        var ratingClass4 ='';
+        var ratingClass5 ='';
+        if(rating == 0){
+            ratingClass1 ='';
+            ratingClass2 ='';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 1){
+            ratingClass1 ='checked';
+            ratingClass2 ='';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 2){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 3){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='';
+            ratingClass5 ='';
+        }else if(rating == 4){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='checked';
+            ratingClass5 ='';
+        }else if(rating == 5){
+            ratingClass1 ='checked';
+            ratingClass2 ='checked';
+            ratingClass3 ='checked';
+            ratingClass4 ='checked';
+            ratingClass5 ='checked';
+        }
+     var html = '<li class="list-group-item"><div class="row"><div class="col-xs-2 col-md-1"></div><div class="col-xs-10 col-md-11"><div><div class="mic-info">By: '+v.userName+' on '+timeStamp+'</div></div><div class="comment-text">'+v.comment+'</div><div class="action"><small><span class="fa fa-xs fa-star '+ratingClass1+'"></span><span class="fa fa-xs fa-star '+ratingClass2+'"></span><span class="fa fa-xs fa-star '+ratingClass3+'"></span><span class="fa fa-xs fa-star '+ratingClass4+'"></span><span class="fa fa-xs fa-star '+ratingClass5+'"></span><p class="overallrating">'+v.rating+'/5</p></small></div></div></div></li>';
+     $(".commentList").append(html);
+ 
     	 
     });
-   // var html = 
+    
 }});
 }
 $(document).ready(function () {
@@ -139,27 +189,7 @@ $(document).on("click", ".downloadcv", function(e){
 <br>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 imgContainer align-items-center">
-			<img alt="Job Seeker" src="<?php echo $imagePath; ?>" class="img-thumbnail pb-2" width="auto" height="150" />
-			<div class="card bg-default">
-				<h5 class="card-header">
-					<?php echo $_SESSION['userName']; ?>
-				</h5>
-				<div class="card-body">
-					<p class="card-text">
-						<p><?php echo $_SESSION['address1'].' '. $_SESSION['address2'].', '. $_SESSION['suburb'].', '.$_SESSION['city'].', '.$_SESSION['postcode']; ?></p>
-						<p><?php echo $_SESSION['email']; ?></p>
-						<p><?php echo $_SESSION['telephone']; ?></p>
-					</p>
-				</div>
-				<div class="card-footer">
-					<a href="../editprofile">Edit Profile</a>
-				</div>
-				<div class="card-footer">
-					<a href="../php/logout.php">Logout</a>
-				</div>
-			</div>
-		</div>
+		<?php include('dashboard.php'); ?>
 		<div class="col-md-8">
 			<h5>
 				Posted Profiles
