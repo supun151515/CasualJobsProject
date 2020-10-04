@@ -35,13 +35,10 @@ if($_SESSION['type'] == '1'){
 <script>
 $(document).ready(function () {
 var path = window.location.pathname;
-      path = path.replace(/\/$/,"");
-      path = decodeURIComponent(path);
-      path = path.split("/");
-      path = path[2];
- 
-      $("#menu li").removeClass("active");
-      $("#"+ path).addClass("active");
+path = path.replace(/\//g, "");
+path = decodeURIComponent(path);
+$("#menu li").removeClass("active");
+$("#"+ path).addClass("active");
 });
 </script>
 <body style="margin:0; padding: 0">

@@ -21,7 +21,7 @@
 						</small>
 					</p>
 				</div>
-				<?php include('comment.php');?>
+				<?php if(file_exists('commentdata.php')){include('commentdata.php');} ?>
 				<div class="card-footer">
 					<a href="../editprofile">Edit Profile</a>
 				</div>

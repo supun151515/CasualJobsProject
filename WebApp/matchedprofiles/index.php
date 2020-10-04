@@ -5,7 +5,7 @@ require_once("../php/header.php");
 $_SESSION['dropdown'] = '1';
 require_once("../php/session.php");
 if($_SESSION['type'] != '2'){
-	echo "You are not allowed to access this feature";
+	include('../php/block.php');
 	return false;
 }
  

@@ -25,7 +25,14 @@ if(isset($_POST['email']) && isset($_POST['password'] ))
 		$smt2->execute(array($row->id));
 		$row2 = $smt2->fetch(PDO::FETCH_OBJ);
 		}
-		
+		$row2Count = $row2->count;
+		if($row2Count == '0'){
+			$_SESSION['rating1'] = '';
+			$_SESSION['rating2'] = '';
+			$_SESSION['rating3'] = '';
+			$_SESSION['rating4'] = '';
+			$_SESSION['rating5'] = '';
+		}else{
 		$ratingCount = $row2->count;
 		$ratingValue = $row2->rating;
 		$rating = (int)$ratingValue / (int)$ratingCount;
@@ -68,6 +75,8 @@ if(isset($_POST['email']) && isset($_POST['password'] ))
 			$_SESSION['rating4'] = 'checked';
 			$_SESSION['rating5'] = 'checked';
 		}
+		}
+		
 		$_SESSION['id'] = $row->id;
 		$_SESSION['email'] = $row->email;
 		$_SESSION['userName'] = $row->userName;

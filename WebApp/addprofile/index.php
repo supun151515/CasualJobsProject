@@ -3,7 +3,7 @@ require_once("../php/session.php");
 require_once("../php/header.php");
 
 if($_SESSION['type'] != '2'){
-	echo "You are not allowed to access this feature";
+	include('../php/block.php');
 	return false;
 }
  
