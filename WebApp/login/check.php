@@ -17,11 +17,11 @@ if(isset($_POST['email']) && isset($_POST['password'] ))
 
 	if($num_rows  != 0) {
 		if($row->user_type == 1){
-		$smt2 = $con->prepare("SELECT count(*) as count, sum(rating) as rating FROM ratingemp WHERE empid=? AND status='1'");
+		$smt2 = $con->prepare("SELECT count(*) as count, IFNULL(sum(rating), '0') as rating FROM ratingemp WHERE empid=? AND status='1'");
 		$smt2->execute(array($row->id));
 		$row2 = $smt2->fetch(PDO::FETCH_OBJ);
 		}else{
-		$smt2 = $con->prepare("SELECT count(*) as count, sum(rating) as rating FROM ratingseeker WHERE seekerid=? AND status='1'");
+		$smt2 = $con->prepare("SELECT count(*) as count, IFNULL(sum(rating), '0') as rating FROM ratingseeker WHERE seekerid=? AND status='1'");
 		$smt2->execute(array($row->id));
 		$row2 = $smt2->fetch(PDO::FETCH_OBJ);
 		}
@@ -32,6 +32,7 @@ if(isset($_POST['email']) && isset($_POST['password'] ))
 			$_SESSION['rating3'] = '';
 			$_SESSION['rating4'] = '';
 			$_SESSION['rating5'] = '';
+			$_SESSION['rating'] = '0';
 		}else{
 		$ratingCount = $row2->count;
 		$ratingValue = $row2->rating;

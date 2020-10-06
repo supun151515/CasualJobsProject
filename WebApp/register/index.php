@@ -71,6 +71,7 @@ $("#register").click(function(){
     return false;
   }
   if(email == '' || password == '' || empName =='' || address_line_1 == '' || emp_tel ==''){
+    $("#email").focus();
     alertify.error("Please complete the form");
     return false;
   }
@@ -85,11 +86,14 @@ $("#register").click(function(){
         
         return false;
        }else if(data=='exist'){
-        alertify.alert("Error", "Duplicate email or username found. Please change it and try again");
         $("#email").focus();
+        alertify.alert("Error", "Duplicate email or username found. Please change it and try again");
         return false;
+        
+        
        }else {
         alertify.alert("Error", "Unable to register. Please contact your system administrator");
+        return false;
        }
     });
 
