@@ -26,7 +26,7 @@ $password = 'supun123';
 //Remote Data
 $dbname = 'sinergyl_casualjobs';
 $user = 'sinergyl_casualjobs';
-$password = 'sinergyl_casualjobs';
+$password = 'password';
 
 */
 try{
